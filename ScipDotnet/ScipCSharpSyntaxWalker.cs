@@ -74,11 +74,11 @@ public class ScipCSharpSyntaxWalker : CSharpSyntaxWalker
     /// <summary>
     /// Emits a definition occurrence with appropriate role flags.
     /// </summary>
-    private void EmitDefinition(ISymbol? symbol, Location location)
+    private void EmitDefinition(ISymbol? symbol, Location location, SyntaxNode node)
     {
         if (symbol == null) return;
         var roles = (int)SymbolRole.Definition | GetForwardDefinitionRole(symbol);
-        _scipDocumentIndexer.VisitOccurrence(symbol, location, roles);
+        _scipDocumentIndexer.VisitOccurrence(symbol, location, roles, node);
     }
 
     public override void VisitIdentifierName(IdentifierNameSyntax node)
@@ -87,7 +87,7 @@ public class ScipCSharpSyntaxWalker : CSharpSyntaxWalker
         {
             var symbol = _semanticModel.GetSymbolInfo(node).Symbol;
             var roles = GetAccessRole(node);
-            _scipDocumentIndexer.VisitOccurrence(symbol, node.GetLocation(), roles);
+            _scipDocumentIndexer.VisitOccurrence(symbol, node.GetLocation(), roles, node);
         }
 
         base.VisitIdentifierName(node);
@@ -98,7 +98,7 @@ public class ScipCSharpSyntaxWalker : CSharpSyntaxWalker
         if (node.Name != null)
         {
             var symbol = _semanticModel.GetSymbolInfo(node.Name).Symbol;
-            _scipDocumentIndexer.VisitOccurrence(symbol, node.Name.GetLocation(), (int)SymbolRole.Import);
+            _scipDocumentIndexer.VisitOccurrence(symbol, node.Name.GetLocation(), (int)SymbolRole.Import, node.Name);
         }
 
         base.VisitUsingDirective(node);
@@ -106,145 +106,145 @@ public class ScipCSharpSyntaxWalker : CSharpSyntaxWalker
 
     public override void VisitClassDeclaration(ClassDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitClassDeclaration(node);
     }
 
     public override void VisitRecordDeclaration(RecordDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitRecordDeclaration(node);
     }
 
     public override void VisitEnumDeclaration(EnumDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitEnumDeclaration(node);
     }
 
     public override void VisitCatchDeclaration(CatchDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitCatchDeclaration(node);
     }
 
     public override void VisitConstructorDeclaration(ConstructorDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitConstructorDeclaration(node);
     }
 
     public override void VisitDelegateDeclaration(DelegateDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitDelegateDeclaration(node);
     }
 
     public override void VisitDestructorDeclaration(DestructorDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitDestructorDeclaration(node);
     }
 
     public override void VisitEventDeclaration(EventDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitEventDeclaration(node);
     }
 
     public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitInterfaceDeclaration(node);
     }
 
     public override void VisitPropertyDeclaration(PropertyDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitPropertyDeclaration(node);
     }
 
     public override void VisitStructDeclaration(StructDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitStructDeclaration(node);
     }
 
     public override void VisitVariableDeclarator(VariableDeclaratorSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitVariableDeclarator(node);
     }
 
     public override void VisitEnumMemberDeclaration(EnumMemberDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitEnumMemberDeclaration(node);
     }
 
     public override void VisitMethodDeclaration(MethodDeclarationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitMethodDeclaration(node);
     }
 
     public override void VisitLocalFunctionStatement(LocalFunctionStatementSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitLocalFunctionStatement(node);
     }
 
     public override void VisitParameter(ParameterSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitParameter(node);
     }
 
     public override void VisitSingleVariableDesignation(SingleVariableDesignationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitSingleVariableDesignation(node);
     }
 
     public override void VisitTypeParameter(TypeParameterSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitTypeParameter(node);
     }
 
     public override void VisitForEachStatement(ForEachStatementSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitForEachStatement(node);
     }
 
     public override void VisitFromClause(FromClauseSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitFromClause(node);
     }
 
     public override void VisitJoinClause(JoinClauseSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitJoinClause(node);
     }
 
     public override void VisitJoinIntoClause(JoinIntoClauseSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitJoinIntoClause(node);
     }
 
     public override void VisitLetClause(LetClauseSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitLetClause(node);
     }
 
     public override void VisitQueryContinuation(QueryContinuationSyntax node)
     {
-        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation());
+        EmitDefinition(_semanticModel.GetDeclaredSymbol(node), node.Identifier.GetLocation(), node);
         base.VisitQueryContinuation(node);
     }
 }

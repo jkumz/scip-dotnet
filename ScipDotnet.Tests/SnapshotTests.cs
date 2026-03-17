@@ -256,23 +256,48 @@ public class SnapshotTests
                     .Append(' ')
                     .AppendLine(occurrence.Symbol);
 
+                var annotationPrefix = commentChar + indent + new String(' ', length + 1);
+
+                // Render enclosing_range if present
+                if (occurrence.EnclosingRange.Count > 0)
+                {
+                    var er = occurrence.EnclosingRange;
+                    if (er.Count == 3)
+                    {
+                        sb.Append(annotationPrefix)
+                            .Append("enclosing_range ")
+                            .Append(er[0]).Append(':').Append(er[1])
+                            .Append('-')
+                            .Append(er[0]).Append(':').Append(er[2])
+                            .AppendLine();
+                    }
+                    else if (er.Count >= 4)
+                    {
+                        sb.Append(annotationPrefix)
+                            .Append("enclosing_range ")
+                            .Append(er[0]).Append(':').Append(er[1])
+                            .Append('-')
+                            .Append(er[2]).Append(':').Append(er[3])
+                            .AppendLine();
+                    }
+                }
+
                 if (isDefinition)
                 {
                     var info = symtab.GetValueOrDefault(occurrence.Symbol, new SymbolInformation());
-                    var prefix = commentChar + indent + new String(' ', length + 1);
                     foreach (var documentation in info.Documentation)
                     {
-                        sb.Append(prefix).Append("documentation ").AppendLine(documentation.Replace("\n", "\\n"));
+                        sb.Append(annotationPrefix).Append("documentation ").AppendLine(documentation.Replace("\n", "\\n"));
                     }
 
                     if (info.Kind != SymbolInformation.Types.Kind.UnspecifiedKind)
                     {
-                        sb.Append(prefix).Append("kind ").AppendLine(info.Kind.ToString());
+                        sb.Append(annotationPrefix).Append("kind ").AppendLine(info.Kind.ToString());
                     }
 
                     foreach (var relationship in info.Relationships)
                     {
-                        sb.Append(prefix).Append("relationship ");
+                        sb.Append(annotationPrefix).Append("relationship ");
                         if (relationship.IsDefinition) sb.Append("definition ");
                         if (relationship.IsImplementation) sb.Append("implementation ");
                         if (relationship.IsReference) sb.Append("reference ");

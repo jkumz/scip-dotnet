@@ -232,8 +232,11 @@ public class ScipDocumentIndexer
     /// Records a SCIP occurrence for the given Roslyn symbol at the specified location.
     /// The symbolRoles parameter is a bitset of SymbolRole flags (Definition, Import,
     /// ReadAccess, WriteAccess, ForwardDefinition, etc.).
+    /// When a SyntaxNode is provided, the enclosing declaration range is computed
+    /// by walking up the syntax tree to the nearest MemberDeclarationSyntax or
+    /// LocalFunctionStatementSyntax ancestor.
     /// </summary>
-    public void VisitOccurrence(ISymbol? symbol, Location location, int symbolRoles)
+    public void VisitOccurrence(ISymbol? symbol, Location location, int symbolRoles, SyntaxNode? node = null)
     {
         if (symbol == null)
         {
@@ -250,6 +253,16 @@ public class ScipDocumentIndexer
         foreach (var range in LocationToRange(location))
         {
             occurrence.Range.Add(range);
+        }
+
+        // Set enclosing_range by walking up to the nearest declaration ancestor.
+        if (node != null)
+        {
+            var enclosing = FindEnclosingRange(node);
+            if (enclosing != null)
+            {
+                occurrence.EnclosingRange.AddRange(LineSpanToRange(enclosing.Value));
+            }
         }
 
         var isDefinition = (symbolRoles & (int)SymbolRole.Definition) != 0;
@@ -478,23 +491,59 @@ public class ScipDocumentIndexer
     private static IEnumerable<int> LocationToRange(Location location)
     {
         var span = location.GetMappedLineSpan();
+        return LineSpanToRange(span);
+    }
+
+    /// <summary>
+    /// Converts a FileLinePositionSpan to SCIP's range format.
+    /// Single-line ranges use [line, startChar, endChar]. Multi-line ranges
+    /// use [startLine, startChar, endLine, endChar].
+    /// </summary>
+    private static int[] LineSpanToRange(FileLinePositionSpan span)
+    {
         if (span.StartLinePosition.Line == span.EndLinePosition.Line)
         {
-            return new[]
-                {
+            return
+                [
                     span.StartLinePosition.Line,
                     span.StartLinePosition.Character,
                     span.EndLinePosition.Character
-                };
+                ];
         }
 
-        return new[]
-            {
+        return
+            [
                 span.StartLinePosition.Line,
                 span.StartLinePosition.Character,
                 span.EndLinePosition.Line,
                 span.EndLinePosition.Character
-            };
+            ];
+    }
+
+    /// <summary>
+    /// Walks up the syntax tree from the given node to find the nearest enclosing
+    /// declaration. Checks for MemberDeclarationSyntax (the base class covering
+    /// all C# declaration types), LocalFunctionStatementSyntax (nested methods),
+    /// and VB's DeclarationStatementSyntax. Returns the declaration's line span
+    /// for use as the occurrence's enclosing_range.
+    /// </summary>
+    /// <param name="node">The syntax node to start walking from.</param>
+    /// <returns>The enclosing declaration's line span, or null if none found.</returns>
+    private static FileLinePositionSpan? FindEnclosingRange(SyntaxNode node)
+    {
+        foreach (var ancestor in node.Ancestors())
+        {
+            // C#: MemberDeclarationSyntax covers classes, structs, methods, properties, fields,
+            // enums, delegates, namespaces, etc. LocalFunctionStatementSyntax covers nested methods.
+            // VB: DeclarationStatementSyntax covers equivalent VB declaration nodes.
+            if (ancestor is Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax
+                or Microsoft.CodeAnalysis.CSharp.Syntax.LocalFunctionStatementSyntax
+                or Microsoft.CodeAnalysis.VisualBasic.Syntax.DeclarationStatementSyntax)
+            {
+                return ancestor.SyntaxTree.GetLineSpan(ancestor.Span);
+            }
+        }
+        return null;
     }
 
     private static bool IsLocalSymbol(ISymbol sym)

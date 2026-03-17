@@ -292,7 +292,12 @@ public class ScipDocumentIndexer
 
         // Emit SymbolInformation for this definition occurrence.
         _definedSymbols.Add(scipSymbol);
-        var info = new SymbolInformation { Symbol = scipSymbol, Kind = ScipKind(symbol) };
+        var info = new SymbolInformation
+        {
+            Symbol = scipSymbol,
+            DisplayName = symbol.Name,
+            Kind = ScipKind(symbol)
+        };
         _doc.Symbols.Add(info);
 
         var symbolSignature = symbol.ToDisplayString(_format);
@@ -405,7 +410,7 @@ public class ScipDocumentIndexer
         }
         symbol = symbol.OriginalDefinition;
 
-        var info = new SymbolInformation { Symbol = scipSymbol };
+        var info = new SymbolInformation { Symbol = scipSymbol, DisplayName = symbol.Name };
 
         var symbolSignature = symbol.ToDisplayString(_format);
         if (symbolSignature.Length > 0)

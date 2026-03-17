@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+using System.Collections.Concurrent;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Scip;
 using Document = Scip.Document;
@@ -16,6 +17,8 @@ public class ScipDocumentIndexer
     private readonly Dictionary<ISymbol, ScipSymbol> _globals;
     private readonly Dictionary<ISymbol, ScipSymbol> _locals = new(SymbolEqualityComparer.Default);
     private readonly string _markdownCodeFenceLanguage;
+    private readonly Compilation? _compilation;
+    private readonly ConcurrentDictionary<string, SymbolInformation>? _externalSymbols;
 
     // Custom formatting options to render symbol documentation. Feel free to tweak these parameters.
     // The options were derived by multiple rounds of experimentation with the goal of striking a
@@ -56,14 +59,26 @@ public class ScipDocumentIndexer
                               SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
     );
 
+    /// <summary>
+    /// Creates a new ScipDocumentIndexer for a single document.
+    /// </summary>
+    /// <param name="doc">The SCIP Document to populate with occurrences and symbols.</param>
+    /// <param name="options">Indexing options including the EmitExternalSymbols flag.</param>
+    /// <param name="globals">Shared global symbol registry for cross-document deduplication.</param>
+    /// <param name="compilation">The Roslyn Compilation for the current project, used to compare assemblies.</param>
+    /// <param name="externalSymbols">Shared dictionary collecting SymbolInformation for external assembly symbols.</param>
     public ScipDocumentIndexer(
         Document doc,
         IndexCommandOptions options,
-        Dictionary<ISymbol, ScipSymbol> globals)
+        Dictionary<ISymbol, ScipSymbol> globals,
+        Compilation? compilation = null,
+        ConcurrentDictionary<string, SymbolInformation>? externalSymbols = null)
     {
         _doc = doc;
         _options = options;
         _globals = globals;
+        _compilation = compilation;
+        _externalSymbols = externalSymbols;
         _markdownCodeFenceLanguage = _doc.Language == "C#" ? "cs" : "vb";
     }
 
@@ -213,24 +228,26 @@ public class ScipDocumentIndexer
     private bool IsIgnoredRelationshipSymbol(string symbol) =>
         _isIgnoredRelationshipSymbol.Any(symbol.EndsWith);
 
-    public void VisitOccurrence(ISymbol? symbol, Location location, bool isDefinition)
+    /// <summary>
+    /// Records a SCIP occurrence for the given Roslyn symbol at the specified location.
+    /// The symbolRoles parameter is a bitset of SymbolRole flags (Definition, Import,
+    /// ReadAccess, WriteAccess, ForwardDefinition, etc.).
+    /// When a SyntaxNode is provided, the enclosing declaration range is computed
+    /// by walking up the syntax tree to the nearest MemberDeclarationSyntax or
+    /// LocalFunctionStatementSyntax ancestor.
+    /// </summary>
+    public void VisitOccurrence(ISymbol? symbol, Location location, int symbolRoles, SyntaxNode? node = null)
     {
         if (symbol == null)
         {
             return;
         }
 
-        var symbolRole = 0;
-        if (isDefinition)
-        {
-            symbolRole |= (int)SymbolRole.Definition;
-        }
-
         var scipSymbol = CreateScipSymbol(symbol).Value;
         var occurrence = new Occurrence
         {
             Symbol = scipSymbol,
-            SymbolRoles = symbolRole
+            SymbolRoles = symbolRoles
         };
         _doc.Occurrences.Add(occurrence);
         foreach (var range in LocationToRange(location))
@@ -238,10 +255,56 @@ public class ScipDocumentIndexer
             occurrence.Range.Add(range);
         }
 
+        // Set enclosing_range by walking up to the nearest declaration ancestor.
+        if (node != null)
+        {
+            var enclosing = FindEnclosingRange(node);
+            if (enclosing != null)
+            {
+                occurrence.EnclosingRange.AddRange(LineSpanToRange(enclosing.Value));
+            }
+        }
+
+        var isDefinition = (symbolRoles & (int)SymbolRole.Definition) != 0;
+
+        // Collect external symbol information for cross-assembly references.
+        // GetOrAdd ensures each external symbol is processed once; GetDocumentationCommentXml()
+        // (the expensive XML doc I/O) only fires on the first encounter.
+        if (!isDefinition && _options.EmitExternalSymbols && _externalSymbols != null
+            && _compilation != null && symbol.ContainingAssembly != null
+            && !SymbolEqualityComparer.Default.Equals(symbol.ContainingAssembly, _compilation.Assembly))
+        {
+            _externalSymbols.GetOrAdd(scipSymbol, _ =>
+            {
+                var extInfo = new SymbolInformation
+                {
+                    Symbol = scipSymbol,
+                    DisplayName = symbol.Name,
+                    Kind = MapSymbolKind(symbol)
+                };
+                var signature = symbol.ToDisplayString(_format);
+                if (signature.Length > 0)
+                {
+                    extInfo.Documentation.Add($"```{_markdownCodeFenceLanguage}\n{signature}\n```");
+                }
+                var xmlDoc = symbol.GetDocumentationCommentXml();
+                if (xmlDoc?.Length > 0)
+                {
+                    extInfo.Documentation.Add(xmlDoc);
+                }
+                return extInfo;
+            });
+        }
+
         if (!isDefinition) return;
 
         // Emit SymbolInformation for this definition occurrence.
-        var info = new SymbolInformation { Symbol = scipSymbol };
+        var info = new SymbolInformation
+        {
+            Symbol = scipSymbol,
+            DisplayName = symbol.Name,
+            Kind = MapSymbolKind(symbol)
+        };
         _doc.Symbols.Add(info);
 
         var symbolSignature = symbol.ToDisplayString(_format);
@@ -321,6 +384,89 @@ public class ScipDocumentIndexer
                     break;
                 }
         }
+
+        // Emit is_type_definition relationship for symbols that have a declared type.
+        // This enables "Go to type definition" in code intelligence consumers.
+        EmitTypeDefinitionRelationship(info, symbol);
+    }
+
+    /// <summary>
+    /// Emits a Relationship with is_type_definition=true for symbols that have a
+    /// declared type (fields, properties, parameters, local variables, events).
+    /// This enables "Go to type definition" navigation in code intelligence consumers.
+    /// </summary>
+    /// <param name="info">The SymbolInformation to add the relationship to.</param>
+    /// <param name="symbol">The Roslyn symbol whose declared type is resolved.</param>
+    private void EmitTypeDefinitionRelationship(SymbolInformation info, ISymbol symbol)
+    {
+        ITypeSymbol? typeSymbol = symbol switch
+        {
+            IFieldSymbol field => field.Type,
+            IPropertySymbol property => property.Type,
+            IParameterSymbol parameter => parameter.Type,
+            ILocalSymbol local => local.Type,
+            IEventSymbol eventSymbol => eventSymbol.Type,
+            _ => null
+        };
+
+        if (typeSymbol == null) return;
+
+        var typeScipSymbol = CreateScipSymbol(typeSymbol).Value;
+        if (typeScipSymbol.Length == 0 || IsIgnoredRelationshipSymbol(typeScipSymbol)) return;
+
+        info.Relationships.Add(new Relationship
+        {
+            Symbol = typeScipSymbol,
+            IsTypeDefinition = true
+        });
+    }
+
+    /// <summary>
+    /// Maps a Roslyn ISymbol to the SCIP SymbolInformation.Kind enum.
+    /// Uses Roslyn's ISymbol subtype and modifier properties (IsStatic, IsAbstract,
+    /// IsConst, MethodKind, TypeKind) to select the most specific SCIP Kind value.
+    /// Returns UnspecifiedKind for symbol types that don't have a direct mapping.
+    /// </summary>
+    /// <param name="symbol">The Roslyn symbol to classify.</param>
+    /// <returns>The corresponding SCIP Kind enum value.</returns>
+    private static SymbolInformation.Types.Kind MapSymbolKind(ISymbol symbol)
+    {
+        return symbol switch
+        {
+            INamedTypeSymbol { TypeKind: TypeKind.Class } => SymbolInformation.Types.Kind.Class,
+            INamedTypeSymbol { TypeKind: TypeKind.Struct } => SymbolInformation.Types.Kind.Struct,
+            INamedTypeSymbol { TypeKind: TypeKind.Interface } => SymbolInformation.Types.Kind.Interface,
+            INamedTypeSymbol { TypeKind: TypeKind.Enum } => SymbolInformation.Types.Kind.Enum,
+            INamedTypeSymbol { TypeKind: TypeKind.Delegate } => SymbolInformation.Types.Kind.Delegate,
+            INamedTypeSymbol { TypeKind: TypeKind.Module } => SymbolInformation.Types.Kind.Module,
+
+            IMethodSymbol { MethodKind: MethodKind.Constructor or MethodKind.StaticConstructor }
+                => SymbolInformation.Types.Kind.Constructor,
+            IMethodSymbol { MethodKind: MethodKind.Destructor }
+                => SymbolInformation.Types.Kind.Method,
+            IMethodSymbol { MethodKind: MethodKind.UserDefinedOperator or MethodKind.BuiltinOperator or MethodKind.Conversion }
+                => SymbolInformation.Types.Kind.Operator,
+            IMethodSymbol { IsAbstract: true } => SymbolInformation.Types.Kind.AbstractMethod,
+            IMethodSymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticMethod,
+            IMethodSymbol => SymbolInformation.Types.Kind.Method,
+
+            IPropertySymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticProperty,
+            IPropertySymbol => SymbolInformation.Types.Kind.Property,
+
+            IFieldSymbol { IsConst: true } => SymbolInformation.Types.Kind.Constant,
+            IFieldSymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticField,
+            IFieldSymbol => SymbolInformation.Types.Kind.Field,
+
+            IEventSymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticEvent,
+            IEventSymbol => SymbolInformation.Types.Kind.Event,
+
+            IParameterSymbol => SymbolInformation.Types.Kind.Parameter,
+            ITypeParameterSymbol => SymbolInformation.Types.Kind.TypeParameter,
+            ILocalSymbol => SymbolInformation.Types.Kind.Variable,
+            INamespaceSymbol => SymbolInformation.Types.Kind.Namespace,
+
+            _ => SymbolInformation.Types.Kind.UnspecifiedKind
+        };
     }
 
     // Returns explicitly and implicitly implemented interface methods by the given symbol method.
@@ -345,23 +491,59 @@ public class ScipDocumentIndexer
     private static IEnumerable<int> LocationToRange(Location location)
     {
         var span = location.GetMappedLineSpan();
+        return LineSpanToRange(span);
+    }
+
+    /// <summary>
+    /// Converts a FileLinePositionSpan to SCIP's range format.
+    /// Single-line ranges use [line, startChar, endChar]. Multi-line ranges
+    /// use [startLine, startChar, endLine, endChar].
+    /// </summary>
+    private static int[] LineSpanToRange(FileLinePositionSpan span)
+    {
         if (span.StartLinePosition.Line == span.EndLinePosition.Line)
         {
-            return new[]
-                {
+            return
+                [
                     span.StartLinePosition.Line,
                     span.StartLinePosition.Character,
                     span.EndLinePosition.Character
-                };
+                ];
         }
 
-        return new[]
-            {
+        return
+            [
                 span.StartLinePosition.Line,
                 span.StartLinePosition.Character,
                 span.EndLinePosition.Line,
                 span.EndLinePosition.Character
-            };
+            ];
+    }
+
+    /// <summary>
+    /// Walks up the syntax tree from the given node to find the nearest enclosing
+    /// declaration. Checks for MemberDeclarationSyntax (the base class covering
+    /// all C# declaration types), LocalFunctionStatementSyntax (nested methods),
+    /// and VB's DeclarationStatementSyntax. Returns the declaration's line span
+    /// for use as the occurrence's enclosing_range.
+    /// </summary>
+    /// <param name="node">The syntax node to start walking from.</param>
+    /// <returns>The enclosing declaration's line span, or null if none found.</returns>
+    private static FileLinePositionSpan? FindEnclosingRange(SyntaxNode node)
+    {
+        foreach (var ancestor in node.Ancestors())
+        {
+            // C#: MemberDeclarationSyntax covers classes, structs, methods, properties, fields,
+            // enums, delegates, namespaces, etc. LocalFunctionStatementSyntax covers nested methods.
+            // VB: DeclarationStatementSyntax covers equivalent VB declaration nodes.
+            if (ancestor is Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax
+                or Microsoft.CodeAnalysis.CSharp.Syntax.LocalFunctionStatementSyntax
+                or Microsoft.CodeAnalysis.VisualBasic.Syntax.DeclarationStatementSyntax)
+            {
+                return ancestor.SyntaxTree.GetLineSpan(ancestor.Span);
+            }
+        }
+        return null;
     }
 
     private static bool IsLocalSymbol(ISymbol sym)

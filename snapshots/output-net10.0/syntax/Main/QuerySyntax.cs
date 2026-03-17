@@ -1,247 +1,416 @@
   using System.Diagnostics.CodeAnalysis;
-//      ^^^^^^ reference scip-dotnet nuget . . System/
-//             ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
-//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//      ^^^^^^ read_access scip-dotnet nuget . . System/
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ import scip-dotnet nuget . . CodeAnalysis/
+//             ^^^^^^^^^^^ read_access scip-dotnet nuget . . Diagnostics/
+//                         ^^^^^^^^^^^^ read_access scip-dotnet nuget . . CodeAnalysis/
 
   namespace Main;
-//          ^^^^ reference scip-dotnet nuget . . Main/
+//          ^^^^ read_access scip-dotnet nuget . . Main/
+//               enclosing_range 2:0-77:1
 
   [SuppressMessage("ReSharper", "all")]
-// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+// ^^^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+//                 enclosing_range 4:0-77:1
   public class QuerySyntax
 //             ^^^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#
+//                         enclosing_range 2:0-77:1
 //                         documentation ```cs\nclass QuerySyntax\n```
+//                         kind Class
   {
       List<IGeneric> sourceA = new List<IGeneric>();
-//         ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//         ^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                  enclosing_range 7:4-7:50
 //                   ^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                           enclosing_range 7:4-7:50
 //                           documentation ```cs\nprivate List<IGeneric> QuerySyntax.sourceA\n```
-//                                      ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                           kind Field
+//                           relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                      ^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                                               enclosing_range 7:4-7:50
       List<IGeneric> sourceB = new List<IGeneric>();
-//         ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//         ^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                  enclosing_range 8:4-8:50
 //                   ^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#sourceB.
+//                           enclosing_range 8:4-8:50
 //                           documentation ```cs\nprivate List<IGeneric> QuerySyntax.sourceB\n```
-//                                      ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                           kind Field
+//                           relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                      ^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                                               enclosing_range 8:4-8:50
 
       interface IGeneric
 //              ^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
+//                       enclosing_range 4:0-77:1
 //                       documentation ```cs\ninterface IGeneric\n```
+//                       kind Interface
       {
           string Method();
-//               ^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//               ^^^^^^ definition forward_definition scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                      enclosing_range 10:4-13:5
 //                      documentation ```cs\nstring IGeneric.Method()\n```
+//                      kind AbstractMethod
       }
 
       void Select()
 //         ^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Select().
+//                enclosing_range 4:0-77:1
 //                documentation ```cs\nprivate void QuerySyntax.Select()\n```
+//                kind Method
       {
           var x = from a in sourceA select a.Method();
 //            ^ definition local 0
+//              enclosing_range 15:4-18:5
 //              documentation ```cs\nIEnumerable<string>? x\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 1
+//                       enclosing_range 15:4-18:5
 //                       documentation ```cs\n? a\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceA.
-//                                         ^ reference local 1
-//                                           ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                                  enclosing_range 15:4-18:5
+//                                         ^ read_access local 1
+//                                           enclosing_range 15:4-18:5
+//                                           ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                  enclosing_range 15:4-18:5
       }
 
       void Projection()
 //         ^^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Projection().
+//                    enclosing_range 4:0-77:1
 //                    documentation ```cs\nprivate void QuerySyntax.Projection()\n```
+//                    kind Method
       {
           var x = from a in sourceA select new { Name = a.Method() };
 //            ^ definition local 2
+//              enclosing_range 20:4-24:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string Name>>? x\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 3
+//                       enclosing_range 20:4-24:5
 //                       documentation ```cs\n? a\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceA.
-//                                               ^^^^ reference local 5
-//                                                      ^ reference local 3
-//                                                        ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                                  enclosing_range 20:4-24:5
+//                                               ^^^^ read_access local 5
+//                                                    enclosing_range 20:4-24:5
+//                                                      ^ read_access local 3
+//                                                        enclosing_range 20:4-24:5
+//                                                        ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                               enclosing_range 20:4-24:5
           var b = from a in x select a.Name;
 //            ^ definition local 6
+//              enclosing_range 20:4-24:5
 //              documentation ```cs\nIEnumerable<string>? b\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 7
+//                       enclosing_range 20:4-24:5
 //                       documentation ```cs\n? a\n```
-//                          ^ reference local 2
-//                                   ^ reference local 7
-//                                     ^^^^ reference local 5
+//                          ^ read_access local 2
+//                            enclosing_range 20:4-24:5
+//                                   ^ read_access local 7
+//                                     enclosing_range 20:4-24:5
+//                                     ^^^^ read_access local 5
+//                                          enclosing_range 20:4-24:5
       }
 
       void Where()
 //         ^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Where().
+//               enclosing_range 4:0-77:1
 //               documentation ```cs\nprivate void QuerySyntax.Where()\n```
+//               kind Method
       {
           var x = from a in sourceA where a.Method().StartsWith("a") select a;
 //            ^ definition local 8
+//              enclosing_range 26:4-29:5
 //              documentation ```cs\nIEnumerable<IGeneric>? x\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 9
+//                       enclosing_range 26:4-29:5
 //                       documentation ```cs\n? a\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceA.
-//                                        ^ reference local 9
-//                                          ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
-//                                                   ^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/String#StartsWith(+1).
-//                                                                          ^ reference local 9
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                                  enclosing_range 26:4-29:5
+//                                        ^ read_access local 9
+//                                          enclosing_range 26:4-29:5
+//                                          ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                 enclosing_range 26:4-29:5
+//                                                   ^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/String#StartsWith(+1).
+//                                                              enclosing_range 26:4-29:5
+//                                                                          ^ read_access local 9
+//                                                                            enclosing_range 26:4-29:5
       }
 
       void Let()
 //         ^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Let().
+//             enclosing_range 4:0-77:1
 //             documentation ```cs\nprivate void QuerySyntax.Let()\n```
+//             kind Method
       {
           var x = from a in sourceA
 //            ^ definition local 10
+//              enclosing_range 31:4-36:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string A, string B>>? x\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 11
+//                       enclosing_range 31:4-36:5
 //                       documentation ```cs\n? a\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                                  enclosing_range 31:4-36:5
                   let z = new { A = a.Method(), B = a.Method() }
 //                    ^ definition local 12
+//                      enclosing_range 31:4-36:5
 //                      documentation ```cs\n? z\n```
-//                              ^ reference local 14
-//                                  ^ reference local 11
-//                                    ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
-//                                              ^ reference local 15
-//                                                  ^ reference local 11
-//                                                    ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                              ^ read_access local 14
+//                                enclosing_range 31:4-36:5
+//                                  ^ read_access local 11
+//                                    enclosing_range 31:4-36:5
+//                                    ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                           enclosing_range 31:4-36:5
+//                                              ^ read_access local 15
+//                                                enclosing_range 31:4-36:5
+//                                                  ^ read_access local 11
+//                                                    enclosing_range 31:4-36:5
+//                                                    ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                           enclosing_range 31:4-36:5
                   select z;
-//                       ^ reference local 12
+//                       ^ read_access local 12
+//                         enclosing_range 31:4-36:5
       }
 
       void Join()
 //         ^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Join().
+//              enclosing_range 4:0-77:1
 //              documentation ```cs\nprivate void QuerySyntax.Join()\n```
+//              kind Method
       {
           var x = from a in sourceA
 //            ^ definition local 16
+//              enclosing_range 38:4-43:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string A, string B>>? x\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 17
+//                       enclosing_range 38:4-43:5
 //                       documentation ```cs\n? a\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                                  enclosing_range 38:4-43:5
                   join b in sourceB on a.Method() equals b.Method()
 //                     ^ definition local 18
+//                       enclosing_range 38:4-43:5
 //                       documentation ```cs\n? b\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceB.
-//                                     ^ reference local 17
-//                                       ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
-//                                                       ^ reference local 18
-//                                                         ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceB.
+//                                  enclosing_range 38:4-43:5
+//                                     ^ read_access local 17
+//                                       enclosing_range 38:4-43:5
+//                                       ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                              enclosing_range 38:4-43:5
+//                                                       ^ read_access local 18
+//                                                         enclosing_range 38:4-43:5
+//                                                         ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                                enclosing_range 38:4-43:5
                   select new { A = a.Method(), B = b.Method() };
-//                             ^ reference local 14
-//                                 ^ reference local 17
-//                                   ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
-//                                             ^ reference local 15
-//                                                 ^ reference local 18
-//                                                   ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                             ^ read_access local 14
+//                               enclosing_range 38:4-43:5
+//                                 ^ read_access local 17
+//                                   enclosing_range 38:4-43:5
+//                                   ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                          enclosing_range 38:4-43:5
+//                                             ^ read_access local 15
+//                                               enclosing_range 38:4-43:5
+//                                                 ^ read_access local 18
+//                                                   enclosing_range 38:4-43:5
+//                                                   ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                          enclosing_range 38:4-43:5
       }
 
       void MultipleFrom()
 //         ^^^^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#MultipleFrom().
+//                      enclosing_range 4:0-77:1
 //                      documentation ```cs\nprivate void QuerySyntax.MultipleFrom()\n```
+//                      kind Method
       {
           var x = from a in sourceA
 //            ^ definition local 19
+//              enclosing_range 45:4-51:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string A, string B>>? x\n```
+//              kind Variable
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
 //                     ^ definition local 20
+//                       enclosing_range 45:4-51:5
 //                       documentation ```cs\n? a\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceA.
+//                                  enclosing_range 45:4-51:5
                   from b in sourceB
 //                     ^ definition local 21
+//                       enclosing_range 45:4-51:5
 //                       documentation ```cs\n? b\n```
-//                          ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#sourceB.
+//                          ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#sourceB.
+//                                  enclosing_range 45:4-51:5
                   where a.Method() == b.Method()
-//                      ^ reference local 20
-//                        ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
-//                                    ^ reference local 21
-//                                      ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                      ^ read_access local 20
+//                        enclosing_range 45:4-51:5
+//                        ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                               enclosing_range 45:4-51:5
+//                                    ^ read_access local 21
+//                                      enclosing_range 45:4-51:5
+//                                      ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                             enclosing_range 45:4-51:5
                   select new { A = a.Method(), B = b.Method() };
-//                             ^ reference local 14
-//                                 ^ reference local 20
-//                                   ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
-//                                             ^ reference local 15
-//                                                 ^ reference local 21
-//                                                   ^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                             ^ read_access local 14
+//                               enclosing_range 45:4-51:5
+//                                 ^ read_access local 20
+//                                   enclosing_range 45:4-51:5
+//                                   ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                          enclosing_range 45:4-51:5
+//                                             ^ read_access local 15
+//                                               enclosing_range 45:4-51:5
+//                                                 ^ read_access local 21
+//                                                   enclosing_range 45:4-51:5
+//                                                   ^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#IGeneric#Method().
+//                                                          enclosing_range 45:4-51:5
       }
 
       void JoinInto(List<Student> students1, List<Student> students2)
 //         ^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#JoinInto().
+//                  enclosing_range 4:0-77:1
 //                  documentation ```cs\nprivate void QuerySyntax.JoinInto(List<Student> students1, List<Student> students2)\n```
-//                       ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                  kind Method
+//                       ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                               enclosing_range 53:4-59:5
 //                                ^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students1)
+//                                          enclosing_range 53:4-59:5
 //                                          documentation ```cs\nList<Student> students1\n```
-//                                                ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                                          kind Parameter
+//                                          relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                                ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                                                        enclosing_range 53:4-59:5
 //                                                         ^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students2)
+//                                                                   enclosing_range 53:4-59:5
 //                                                                   documentation ```cs\nList<Student> students2\n```
+//                                                                   kind Parameter
+//                                                                   relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
       {
           var innerGroupJoinQuery =
 //            ^^^^^^^^^^^^^^^^^^^ definition local 22
+//                                enclosing_range 53:4-59:5
 //                                documentation ```cs\nIEnumerable<<anonymous type: string Student, interface IEnumerable<Student> Students>>? innerGroupJoinQuery\n```
+//                                kind Variable
+//                                relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
               from student1 in students1
 //                 ^^^^^^^^ definition local 23
+//                          enclosing_range 53:4-59:5
 //                          documentation ```cs\n? student1\n```
-//                             ^^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students1)
+//                             ^^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students1)
+//                                       enclosing_range 53:4-59:5
               join student2 in students2 on student1.ID equals student2.ID into studentGroup
 //                 ^^^^^^^^ definition local 24
+//                          enclosing_range 53:4-59:5
 //                          documentation ```cs\n? student2\n```
-//                             ^^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students2)
-//                                          ^^^^^^^^ reference local 23
-//                                                   ^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#ID.
-//                                                             ^^^^^^^^ reference local 24
-//                                                                      ^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#ID.
+//                             ^^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students2)
+//                                       enclosing_range 53:4-59:5
+//                                          ^^^^^^^^ read_access local 23
+//                                                   enclosing_range 53:4-59:5
+//                                                   ^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#ID.
+//                                                      enclosing_range 53:4-59:5
+//                                                             ^^^^^^^^ read_access local 24
+//                                                                      enclosing_range 53:4-59:5
+//                                                                      ^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#ID.
+//                                                                         enclosing_range 53:4-59:5
 //                                                                              ^^^^^^^^^^^^ definition local 25
+//                                                                                           enclosing_range 53:4-59:5
 //                                                                                           documentation ```cs\n? studentGroup\n```
               select new { Student = student1.First, Students = studentGroup };
-//                         ^^^^^^^ reference local 27
-//                                   ^^^^^^^^ reference local 23
-//                                            ^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#First.
-//                                                   ^^^^^^^^ reference local 28
-//                                                              ^^^^^^^^^^^^ reference local 25
+//                         ^^^^^^^ read_access local 27
+//                                 enclosing_range 53:4-59:5
+//                                   ^^^^^^^^ read_access local 23
+//                                            enclosing_range 53:4-59:5
+//                                            ^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#First.
+//                                                  enclosing_range 53:4-59:5
+//                                                   ^^^^^^^^ read_access local 28
+//                                                            enclosing_range 53:4-59:5
+//                                                              ^^^^^^^^^^^^ read_access local 25
+//                                                                           enclosing_range 53:4-59:5
       }
 
       void Continuation(List<Student> students)
 //         ^^^^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Continuation().
+//                      enclosing_range 4:0-77:1
 //                      documentation ```cs\nprivate void QuerySyntax.Continuation(List<Student> students)\n```
-//                           ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                      kind Method
+//                           ^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                                   enclosing_range 61:4-69:5
 //                                    ^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Continuation().(students)
+//                                             enclosing_range 61:4-69:5
 //                                             documentation ```cs\nList<Student> students\n```
+//                                             kind Parameter
+//                                             relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
       {
           var sortedGroups =
 //            ^^^^^^^^^^^^ definition local 29
+//                         enclosing_range 61:4-69:5
 //                         documentation ```cs\nIOrderedEnumerable<IGrouping<char, Student>>? sortedGroups\n```
+//                         kind Variable
+//                         relationship type_definition scip-dotnet nuget System.Linq 10.0.0.0 Linq/IOrderedEnumerable#
               from student in students
 //                 ^^^^^^^ definition local 30
+//                         enclosing_range 61:4-69:5
 //                         documentation ```cs\n? student\n```
-//                            ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Continuation().(students)
+//                            ^^^^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Continuation().(students)
+//                                     enclosing_range 61:4-69:5
               orderby student.Last, student.First
-//                    ^^^^^^^ reference local 30
-//                            ^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#Last.
-//                                  ^^^^^^^ reference local 30
-//                                          ^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#First.
+//                    ^^^^^^^ read_access local 30
+//                            enclosing_range 61:4-69:5
+//                            ^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#Last.
+//                                 enclosing_range 61:4-69:5
+//                                  ^^^^^^^ read_access local 30
+//                                          enclosing_range 61:4-69:5
+//                                          ^^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#First.
+//                                                enclosing_range 61:4-69:5
               group student by student.Last[0] into newGroup
-//                  ^^^^^^^ reference local 30
-//                             ^^^^^^^ reference local 30
-//                                     ^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#Last.
+//                  ^^^^^^^ read_access local 30
+//                          enclosing_range 61:4-69:5
+//                             ^^^^^^^ read_access local 30
+//                                     enclosing_range 61:4-69:5
+//                                     ^^^^ read_access scip-dotnet nuget . . Main/QuerySyntax#Student#Last.
+//                                          enclosing_range 61:4-69:5
 //                                                  ^^^^^^^^ definition local 31
+//                                                           enclosing_range 61:4-69:5
 //                                                           documentation ```cs\n? newGroup\n```
               orderby newGroup.Key
-//                    ^^^^^^^^ reference local 31
-//                             ^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 Linq/IGrouping#Key.
+//                    ^^^^^^^^ read_access local 31
+//                             enclosing_range 61:4-69:5
+//                             ^^^ read_access scip-dotnet nuget System.Linq 10.0.0.0 Linq/IGrouping#Key.
+//                                 enclosing_range 61:4-69:5
               select newGroup;
-//                   ^^^^^^^^ reference local 31
+//                   ^^^^^^^^ read_access local 31
+//                            enclosing_range 61:4-69:5
       }
 
       private class Student
 //                  ^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Student#
+//                          enclosing_range 4:0-77:1
 //                          documentation ```cs\nclass Student\n```
+//                          kind Class
       {
           public string First { get; set; }
 //                      ^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Student#First.
+//                            enclosing_range 71:4-76:5
 //                            documentation ```cs\npublic string Student.First { get; set; }\n```
+//                            kind Property
+//                            relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
           public string Last { get; set; }
 //                      ^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Student#Last.
+//                           enclosing_range 71:4-76:5
 //                           documentation ```cs\npublic string Student.Last { get; set; }\n```
+//                           kind Property
+//                           relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
           public int ID { get; set; }
 //                   ^^ definition scip-dotnet nuget . . Main/QuerySyntax#Student#ID.
+//                      enclosing_range 71:4-76:5
 //                      documentation ```cs\npublic int Student.ID { get; set; }\n```
+//                      kind Property
+//                      relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
       }
   }

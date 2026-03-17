@@ -1,4 +1,4 @@
-﻿using System.CommandLine;
+using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Hosting;
 using System.CommandLine.NamingConventionBinder;
@@ -49,6 +49,8 @@ public static class Program
                 @"Provide a case sensitive custom path for ""dotnet restore"" to find the NuGet.config file. " +
                 @"If not provided, ""dotnet restore"" will search for the NuGet.config file recursively up the folder hierarchy " +
                 @"and in the default user and system config locations."),
+            new Option<bool>("--emit-external-symbols", () => false,
+                "Emit SymbolInformation for symbols defined in external assemblies (NuGet packages, .NET SDK). May increase indexing time."),
         };
         indexCommand.Handler = CommandHandler.Create(IndexCommandHandler.Process);
         var rootCommand =

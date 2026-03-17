@@ -121,12 +121,25 @@ public class ScipProjectIndexer
                 continue;
             }
 
+            // When --allow-files is set, skip compilation for projects
+            // that contain none of the specified files.
+            if (options.AllowFiles != null
+                && !project.Documents.Any(d =>
+                    d.FilePath != null && options.AllowFiles.Contains(d.FilePath)))
+            {
+                options.Logger.LogDebug(
+                    "Skipping project {ProjectFilePath} — no files match --allow-files",
+                    project.FilePath);
+                continue;
+            }
+
             var globals = new Dictionary<ISymbol, ScipSymbol>(SymbolEqualityComparer.Default);
 
             options.Logger.LogDebug($"Found {project.Documents.Count()} documents in {projectGroup.Key}");
             foreach (var document in project.Documents)
             {
-                if (options.Matcher.Match(options.WorkingDirectory.FullName, document.FilePath).HasMatches)
+                if (options.Matcher.Match(options.WorkingDirectory.FullName, document.FilePath).HasMatches
+                    && (options.AllowFiles == null || (document.FilePath != null && options.AllowFiles.Contains(document.FilePath))))
                 {
                     yield return await IndexDocument(document, options, globals, project.Language);
                 }

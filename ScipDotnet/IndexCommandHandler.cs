@@ -21,7 +21,8 @@ public static class IndexCommandHandler
         bool allowGlobalSymbolDefinitions,
         int dotnetRestoreTimeout,
         bool skipDotnetRestore,
-        FileInfo? nugetConfigPath
+        FileInfo? nugetConfigPath,
+        List<string> allowFiles
         )
     {
         var logger = loggerFactory.CreateLogger<IndexCommandOptions>();
@@ -37,6 +38,9 @@ public static class IndexCommandHandler
             return 1;
         }
 
+        var allowFilesSet = allowFiles.Count > 0
+            ? new HashSet<string>(allowFiles.Select(f => Path.GetFullPath(f)))
+            : null;
         var options = new IndexCommandOptions(
             workingDirectory,
             OutputFile(workingDirectory, output),
@@ -46,7 +50,8 @@ public static class IndexCommandHandler
             allowGlobalSymbolDefinitions,
             dotnetRestoreTimeout,
             skipDotnetRestore,
-            nugetConfigPath
+            nugetConfigPath,
+            allowFilesSet
         );
         await ScipIndex(loggerFactory, workspace, options);
 

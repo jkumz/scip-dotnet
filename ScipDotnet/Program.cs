@@ -62,6 +62,14 @@ public static class Program
                           @"If not provided, ""dotnet restore"" will search for the NuGet.config file recursively up the folder hierarchy " +
                           @"and in the default user and system config locations."
         };
+        var allowFilesOption = new Option<List<string>>("--allow-files")
+        {
+            Description = "Only emit SCIP Documents for the specified source files (absolute paths). " +
+                          "The full project is still loaded for type resolution.",
+            Arity = ArgumentArity.ZeroOrMore,
+            AllowMultipleArgumentsPerToken = true,
+            DefaultValueFactory = _ => new List<string>()
+        };
 
         var indexCommand = new Command("index", "Index a solution file")
         {
@@ -73,7 +81,8 @@ public static class Program
             allowGlobalSymbolDefinitionsOption,
             dotnetRestoreTimeoutOption,
             skipDotnetRestoreOption,
-            nugetConfigPathOption
+            nugetConfigPathOption,
+            allowFilesOption
         };
 
         indexCommand.SetAction(async (parseResult, cancellationToken) =>
@@ -87,6 +96,7 @@ public static class Program
             var dotnetRestoreTimeout = parseResult.GetValue(dotnetRestoreTimeoutOption);
             var skipDotnetRestore = parseResult.GetValue(skipDotnetRestoreOption);
             var nugetConfigPath = parseResult.GetValue(nugetConfigPathOption);
+            var allowFiles = parseResult.GetValue(allowFilesOption) ?? new List<string>();
 
             using var host = Host.CreateDefaultBuilder().ConfigureLogging(builder =>
             {
@@ -114,7 +124,8 @@ public static class Program
                 allowGlobalSymbolDefinitions,
                 dotnetRestoreTimeout,
                 skipDotnetRestore,
-                nugetConfigPath);
+                nugetConfigPath,
+                allowFiles);
         });
 
         var rootCommand = new RootCommand(

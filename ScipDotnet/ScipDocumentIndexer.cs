@@ -213,24 +213,23 @@ public class ScipDocumentIndexer
     private bool IsIgnoredRelationshipSymbol(string symbol) =>
         _isIgnoredRelationshipSymbol.Any(symbol.EndsWith);
 
-    public void VisitOccurrence(ISymbol? symbol, Location location, bool isDefinition)
+    /// <summary>
+    /// Records a SCIP occurrence for the given Roslyn symbol at the specified location.
+    /// The symbolRoles parameter is a bitset of SymbolRole flags (Definition, Import,
+    /// ReadAccess, WriteAccess, ForwardDefinition, etc.).
+    /// </summary>
+    public void VisitOccurrence(ISymbol? symbol, Location location, int symbolRoles)
     {
         if (symbol == null)
         {
             return;
         }
 
-        var symbolRole = 0;
-        if (isDefinition)
-        {
-            symbolRole |= (int)SymbolRole.Definition;
-        }
-
         var scipSymbol = CreateScipSymbol(symbol).Value;
         var occurrence = new Occurrence
         {
             Symbol = scipSymbol,
-            SymbolRoles = symbolRole
+            SymbolRoles = symbolRoles
         };
         _doc.Occurrences.Add(occurrence);
         foreach (var range in LocationToRange(location))
@@ -238,6 +237,7 @@ public class ScipDocumentIndexer
             occurrence.Range.Add(range);
         }
 
+        var isDefinition = (symbolRoles & (int)SymbolRole.Definition) != 0;
         if (!isDefinition) return;
 
         // Emit SymbolInformation for this definition occurrence.
@@ -325,6 +325,41 @@ public class ScipDocumentIndexer
                     break;
                 }
         }
+
+        // Emit is_type_definition relationship for symbols that have a declared type.
+        // This enables "Go to type definition" in code intelligence consumers.
+        EmitTypeDefinitionRelationship(info, symbol);
+    }
+
+    /// <summary>
+    /// Emits a Relationship with is_type_definition=true for symbols that have a
+    /// declared type (fields, properties, parameters, local variables, events).
+    /// This enables "Go to type definition" navigation in code intelligence consumers.
+    /// </summary>
+    /// <param name="info">The SymbolInformation to add the relationship to.</param>
+    /// <param name="symbol">The Roslyn symbol whose declared type is resolved.</param>
+    private void EmitTypeDefinitionRelationship(SymbolInformation info, ISymbol symbol)
+    {
+        ITypeSymbol? typeSymbol = symbol switch
+        {
+            IFieldSymbol field => field.Type,
+            IPropertySymbol property => property.Type,
+            IParameterSymbol parameter => parameter.Type,
+            ILocalSymbol local => local.Type,
+            IEventSymbol eventSymbol => eventSymbol.Type,
+            _ => null
+        };
+
+        if (typeSymbol == null) return;
+
+        var typeScipSymbol = CreateScipSymbol(typeSymbol).Value;
+        if (typeScipSymbol.Length == 0 || IsIgnoredRelationshipSymbol(typeScipSymbol)) return;
+
+        info.Relationships.Add(new Relationship
+        {
+            Symbol = typeScipSymbol,
+            IsTypeDefinition = true
+        });
     }
 
     // Returns explicitly and implicitly implemented interface methods by the given symbol method.

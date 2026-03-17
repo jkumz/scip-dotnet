@@ -244,7 +244,8 @@ public class ScipDocumentIndexer
         var info = new SymbolInformation
         {
             Symbol = scipSymbol,
-            DisplayName = symbol.Name
+            DisplayName = symbol.Name,
+            Kind = MapSymbolKind(symbol)
         };
         _doc.Symbols.Add(info);
 
@@ -360,6 +361,54 @@ public class ScipDocumentIndexer
             Symbol = typeScipSymbol,
             IsTypeDefinition = true
         });
+    }
+
+    /// <summary>
+    /// Maps a Roslyn ISymbol to the SCIP SymbolInformation.Kind enum.
+    /// Uses Roslyn's ISymbol subtype and modifier properties (IsStatic, IsAbstract,
+    /// IsConst, MethodKind, TypeKind) to select the most specific SCIP Kind value.
+    /// Returns UnspecifiedKind for symbol types that don't have a direct mapping.
+    /// </summary>
+    /// <param name="symbol">The Roslyn symbol to classify.</param>
+    /// <returns>The corresponding SCIP Kind enum value.</returns>
+    private static SymbolInformation.Types.Kind MapSymbolKind(ISymbol symbol)
+    {
+        return symbol switch
+        {
+            INamedTypeSymbol { TypeKind: TypeKind.Class } => SymbolInformation.Types.Kind.Class,
+            INamedTypeSymbol { TypeKind: TypeKind.Struct } => SymbolInformation.Types.Kind.Struct,
+            INamedTypeSymbol { TypeKind: TypeKind.Interface } => SymbolInformation.Types.Kind.Interface,
+            INamedTypeSymbol { TypeKind: TypeKind.Enum } => SymbolInformation.Types.Kind.Enum,
+            INamedTypeSymbol { TypeKind: TypeKind.Delegate } => SymbolInformation.Types.Kind.Delegate,
+            INamedTypeSymbol { TypeKind: TypeKind.Module } => SymbolInformation.Types.Kind.Module,
+
+            IMethodSymbol { MethodKind: MethodKind.Constructor or MethodKind.StaticConstructor }
+                => SymbolInformation.Types.Kind.Constructor,
+            IMethodSymbol { MethodKind: MethodKind.Destructor }
+                => SymbolInformation.Types.Kind.Method,
+            IMethodSymbol { MethodKind: MethodKind.UserDefinedOperator or MethodKind.BuiltinOperator or MethodKind.Conversion }
+                => SymbolInformation.Types.Kind.Operator,
+            IMethodSymbol { IsAbstract: true } => SymbolInformation.Types.Kind.AbstractMethod,
+            IMethodSymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticMethod,
+            IMethodSymbol => SymbolInformation.Types.Kind.Method,
+
+            IPropertySymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticProperty,
+            IPropertySymbol => SymbolInformation.Types.Kind.Property,
+
+            IFieldSymbol { IsConst: true } => SymbolInformation.Types.Kind.Constant,
+            IFieldSymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticField,
+            IFieldSymbol => SymbolInformation.Types.Kind.Field,
+
+            IEventSymbol { IsStatic: true } => SymbolInformation.Types.Kind.StaticEvent,
+            IEventSymbol => SymbolInformation.Types.Kind.Event,
+
+            IParameterSymbol => SymbolInformation.Types.Kind.Parameter,
+            ITypeParameterSymbol => SymbolInformation.Types.Kind.TypeParameter,
+            ILocalSymbol => SymbolInformation.Types.Kind.Variable,
+            INamespaceSymbol => SymbolInformation.Types.Kind.Namespace,
+
+            _ => SymbolInformation.Types.Kind.UnspecifiedKind
+        };
     }
 
     // Returns explicitly and implicitly implemented interface methods by the given symbol method.

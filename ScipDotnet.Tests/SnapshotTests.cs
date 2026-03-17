@@ -241,7 +241,7 @@ public class SnapshotTests
                 if (range.Start.Line != lineNumber)
                     break;
                 var isDefinition = (occurrence.SymbolRoles & (int)SymbolRole.Definition) != 0;
-                var role = isDefinition ? "definition" : "reference";
+                var role = FormatSymbolRoles(occurrence.SymbolRoles);
                 var length = range.End.Character - range.Start.Character;
                 var indent = new String(' ', range.Start.Character);
                 if (document.Language == "Visual Basic")
@@ -265,6 +265,11 @@ public class SnapshotTests
                         sb.Append(prefix).Append("documentation ").AppendLine(documentation.Replace("\n", "\\n"));
                     }
 
+                    if (info.Kind != SymbolInformation.Types.Kind.UnspecifiedKind)
+                    {
+                        sb.Append(prefix).Append("kind ").AppendLine(info.Kind.ToString());
+                    }
+
                     foreach (var relationship in info.Relationships)
                     {
                         sb.Append(prefix).Append("relationship ");
@@ -285,4 +290,27 @@ public class SnapshotTests
 
     private static int CompareOccurrences(Occurrence a, Occurrence b) =>
         Range.FromOccurrence(a).CompareTo(Range.FromOccurrence(b));
+
+    /// <summary>
+    /// Formats a SymbolRole bitset into a human-readable string for snapshot output.
+    /// Renders all set role flags (e.g. "definition forward_definition", "reference read_access").
+    /// Falls back to "reference" when only access roles are set without explicit definition/import.
+    /// </summary>
+    private static string FormatSymbolRoles(int roles)
+    {
+        var parts = new List<string>();
+
+        if ((roles & (int)SymbolRole.Definition) != 0) parts.Add("definition");
+        if ((roles & (int)SymbolRole.Import) != 0) parts.Add("import");
+        if ((roles & (int)SymbolRole.WriteAccess) != 0) parts.Add("write_access");
+        if ((roles & (int)SymbolRole.ReadAccess) != 0) parts.Add("read_access");
+        if ((roles & (int)SymbolRole.Generated) != 0) parts.Add("generated");
+        if ((roles & (int)SymbolRole.Test) != 0) parts.Add("test");
+        if ((roles & (int)SymbolRole.ForwardDefinition) != 0) parts.Add("forward_definition");
+
+        // If no flags are set (role == 0), show "reference" for backward compatibility.
+        if (parts.Count == 0) parts.Add("reference");
+
+        return string.Join(" ", parts);
+    }
 }

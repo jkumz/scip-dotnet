@@ -1,90 +1,143 @@
   Imports System.Diagnostics.CodeAnalysis
-'         ^^^^^^ reference scip-dotnet nuget . . System/
-'                ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
-'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'         ^^^^^^ read_access scip-dotnet nuget . . System/
+'                enclosing_range 0:0-0:39
+'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ import scip-dotnet nuget . . CodeAnalysis/
+'                                         enclosing_range 0:0-0:39
+'                ^^^^^^^^^^^ read_access scip-dotnet nuget . . Diagnostics/
+'                            enclosing_range 0:0-0:39
+'                            ^^^^^^^^^^^^ read_access scip-dotnet nuget . . CodeAnalysis/
+'                                         enclosing_range 0:0-0:39
 
   Namespace VBMain
-'           ^^^^^^ reference scip-dotnet nuget . . VBMain/
+'           ^^^^^^ read_access scip-dotnet nuget . . VBMain/
+'                  enclosing_range 2:0-2:16
       <SuppressMessage("ReSharper", "all")>
-'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+'      ^^^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+'                      enclosing_range 3:4-5:33
       <AttributeUsage(AttributeTargets.[Class], AllowMultiple:=True, Inherited:=True)>
-'      ^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeUsageAttribute#`.ctor`().
-'                     ^^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeTargets#
-'                                      ^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeTargets#Class.
-'                                               ^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeUsageAttribute#AllowMultiple.
-'                                                                    ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeUsageAttribute#Inherited.
+'      ^^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeUsageAttribute#`.ctor`().
+'                     enclosing_range 3:4-5:33
+'                     ^^^^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeTargets#
+'                                      enclosing_range 3:4-5:33
+'                                      ^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeTargets#Class.
+'                                              enclosing_range 3:4-5:33
+'                                               ^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeUsageAttribute#AllowMultiple.
+'                                                             enclosing_range 3:4-5:33
+'                                                                    ^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/AttributeUsageAttribute#Inherited.
+'                                                                              enclosing_range 3:4-5:33
       Public Class GlobalAttributes
 '                  ^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#
+'                                   enclosing_range 3:4-37:13
 '                                   documentation ```vb\nClass GlobalAttributes\n```
+'                                   kind Class
 '                                   relationship implementation scip-dotnet nuget System.Runtime 10.0.0.0 System/Attribute#
           Inherits Attribute
-'                  ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Attribute#
+'                  ^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/Attribute#
+'                            enclosing_range 6:8-6:26
 
           Class AuthorAttribute
 '               ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#
+'                               enclosing_range 8:8-13:17
 '                               documentation ```vb\nClass AuthorAttribute\n```
+'                               kind Class
 '                               relationship implementation scip-dotnet nuget System.Runtime 10.0.0.0 System/Attribute#
               Inherits Attribute
-'                      ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Attribute#
+'                      ^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/Attribute#
+'                                enclosing_range 9:12-9:30
 
               Public Sub New(ByVal name As String)
 '                        ^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'                            enclosing_range 11:12-12:19
 '                            documentation ```vb\nPublic Sub AuthorAttribute.New(name As String)\n```
+'                            kind Constructor
 '                                  ^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().(name)
+'                                       enclosing_range 11:12-11:48
 '                                       documentation ```vb\nname As String\n```
+'                                       kind Parameter
+'                                       relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
               End Sub
           End Class
 
           <Author("PropertyAttribute")>
-'          ^^^^^^ reference scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'          ^^^^^^ read_access scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'                 enclosing_range 15:8-16:27
           Public Z As Integer
 '                ^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#Z.
+'                  enclosing_range 15:8-16:27
 '                  documentation ```vb\nPublic GlobalAttributes.Z As Integer\n```
+'                  kind Field
+'                  relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
 
           <Author("MethodAttribute")>
-'          ^^^^^^ reference scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'          ^^^^^^ read_access scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'                 enclosing_range 18:8-19:45
           Private Function Method1() As Integer
 '                          ^^^^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#Method1().
+'                                  enclosing_range 18:8-21:20
 '                                  documentation ```vb\nPrivate Function GlobalAttributes.Method1() As Integer\n```
+'                                  kind Method
               Return 0
           End Function
 
           <Author("EnumAttribute")>
-'          ^^^^^^ reference scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'          ^^^^^^ read_access scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'                 enclosing_range 23:8-24:14
           Enum A
 '              ^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#A#
+'                enclosing_range 23:8-27:16
 '                documentation ```vb\nEnum A\n```
+'                kind Enum
 '                relationship implementation scip-dotnet nuget System.Runtime 10.0.0.0 System/IComparable#
 '                relationship implementation scip-dotnet nuget System.Runtime 10.0.0.0 System/IConvertible#
 '                relationship implementation scip-dotnet nuget System.Runtime 10.0.0.0 System/ISpanFormattable#
 '                relationship implementation scip-dotnet nuget System.Runtime 10.0.0.0 System/IFormattable#
               B
 '             ^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#A#B.
+'               enclosing_range 23:8-27:16
 '               documentation ```vb\nA.B = 0\n```
+'               kind Constant
+'               relationship type_definition scip-dotnet nuget . . VBMain/GlobalAttributes#A#
               C
 '             ^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#A#C.
+'               enclosing_range 23:8-27:16
 '               documentation ```vb\nA.C = 1\n```
+'               kind Constant
+'               relationship type_definition scip-dotnet nuget . . VBMain/GlobalAttributes#A#
           End Enum
 
           <Author("EventAttribute")>
-'          ^^^^^^ reference scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'          ^^^^^^ read_access scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'                 enclosing_range 29:8-30:46
           Public Event SomeEvent As EventHandler
 '                      ^^^^^^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#SomeEvent#
+'                                enclosing_range 3:4-37:13
 '                                documentation ```vb\nPublic Event GlobalAttributes.SomeEvent As EventHandler\n```
-'                                   ^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/EventHandler#
+'                                kind Event
+'                                relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/EventHandler#
+'                                   ^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 System/EventHandler#
+'                                                enclosing_range 29:8-30:46
 
           <Author("TypeParameterAttribute")>
-'          ^^^^^^ reference scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'          ^^^^^^ read_access scip-dotnet nuget . . VBMain/GlobalAttributes#AuthorAttribute#`.ctor`().
+'                 enclosing_range 32:8-33:37
           Public Class InnerClass(Of T)
 '                      ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#InnerClass#
+'                                 enclosing_range 32:8-36:17
 '                                 documentation ```vb\nClass InnerClass(Of T)\n```
+'                                 kind Class
 '                                    ^ definition local 0
+'                                      enclosing_range 32:8-33:37
 '                                      documentation ```vb\nT\n```
+'                                      kind TypeParameter
               Private Sub Method(Of T2)()
 '                         ^^^^^^ definition scip-dotnet nuget . . VBMain/GlobalAttributes#InnerClass#Method().
+'                                enclosing_range 34:12-35:19
 '                                documentation ```vb\nPrivate Sub InnerClass(Of T).Method(Of T2)()\n```
+'                                kind Method
 '                                   ^^ definition local 1
+'                                      enclosing_range 34:12-34:39
 '                                      documentation ```vb\nT2\n```
+'                                      kind TypeParameter
               End Sub
           End Class
       End Class

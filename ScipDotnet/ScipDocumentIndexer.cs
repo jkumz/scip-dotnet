@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Scip;
@@ -16,6 +17,8 @@ public class ScipDocumentIndexer
     private readonly Dictionary<ISymbol, ScipSymbol> _globals;
     private readonly Dictionary<ISymbol, ScipSymbol> _locals = new(SymbolEqualityComparer.Default);
     private readonly string _markdownCodeFenceLanguage;
+    private readonly Compilation? _compilation;
+    private readonly ConcurrentDictionary<string, SymbolInformation>? _externalSymbols;
 
     // Custom formatting options to render symbol documentation. Feel free to tweak these parameters.
     // The options were derived by multiple rounds of experimentation with the goal of striking a
@@ -56,14 +59,26 @@ public class ScipDocumentIndexer
                               SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
     );
 
+    /// <summary>
+    /// Creates a new ScipDocumentIndexer for a single document.
+    /// </summary>
+    /// <param name="doc">The SCIP Document to populate with occurrences and symbols.</param>
+    /// <param name="options">Indexing options including the EmitExternalSymbols flag.</param>
+    /// <param name="globals">Shared global symbol registry for cross-document deduplication.</param>
+    /// <param name="compilation">The Roslyn Compilation for the current project, used to compare assemblies.</param>
+    /// <param name="externalSymbols">Shared dictionary collecting SymbolInformation for external assembly symbols.</param>
     public ScipDocumentIndexer(
         Document doc,
         IndexCommandOptions options,
-        Dictionary<ISymbol, ScipSymbol> globals)
+        Dictionary<ISymbol, ScipSymbol> globals,
+        Compilation? compilation = null,
+        ConcurrentDictionary<string, SymbolInformation>? externalSymbols = null)
     {
         _doc = doc;
         _options = options;
         _globals = globals;
+        _compilation = compilation;
+        _externalSymbols = externalSymbols;
         _markdownCodeFenceLanguage = _doc.Language == "C#" ? "cs" : "vb";
     }
 
@@ -238,6 +253,36 @@ public class ScipDocumentIndexer
         }
 
         var isDefinition = (symbolRoles & (int)SymbolRole.Definition) != 0;
+
+        // Collect external symbol information for cross-assembly references.
+        // GetOrAdd ensures each external symbol is processed once; GetDocumentationCommentXml()
+        // (the expensive XML doc I/O) only fires on the first encounter.
+        if (!isDefinition && _options.EmitExternalSymbols && _externalSymbols != null
+            && _compilation != null && symbol.ContainingAssembly != null
+            && !SymbolEqualityComparer.Default.Equals(symbol.ContainingAssembly, _compilation.Assembly))
+        {
+            _externalSymbols.GetOrAdd(scipSymbol, _ =>
+            {
+                var extInfo = new SymbolInformation
+                {
+                    Symbol = scipSymbol,
+                    DisplayName = symbol.Name,
+                    Kind = MapSymbolKind(symbol)
+                };
+                var signature = symbol.ToDisplayString(_format);
+                if (signature.Length > 0)
+                {
+                    extInfo.Documentation.Add($"```{_markdownCodeFenceLanguage}\n{signature}\n```");
+                }
+                var xmlDoc = symbol.GetDocumentationCommentXml();
+                if (xmlDoc?.Length > 0)
+                {
+                    extInfo.Documentation.Add(xmlDoc);
+                }
+                return extInfo;
+            });
+        }
+
         if (!isDefinition) return;
 
         // Emit SymbolInformation for this definition occurrence.

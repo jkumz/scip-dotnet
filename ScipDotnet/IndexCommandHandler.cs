@@ -22,7 +22,8 @@ public static class IndexCommandHandler
         bool allowGlobalSymbolDefinitions,
         int dotnetRestoreTimeout,
         bool skipDotnetRestore,
-        FileInfo? nugetConfigPath
+        FileInfo? nugetConfigPath,
+        bool emitExternalSymbols
         )
     {
         var logger = host.Services.GetRequiredService<ILogger<IndexCommandOptions>>();
@@ -47,7 +48,8 @@ public static class IndexCommandHandler
             allowGlobalSymbolDefinitions,
             dotnetRestoreTimeout,
             skipDotnetRestore,
-            nugetConfigPath
+            nugetConfigPath,
+            emitExternalSymbols
         );
         await ScipIndex(host, options);
 
@@ -100,9 +102,15 @@ public static class IndexCommandHandler
                 TextDocumentEncoding = TextEncoding.Utf8,
             }
         };
-        await foreach (var document in indexer.IndexDocuments(host, options))
+        var (documents, externalSymbols) = await indexer.IndexDocuments(host, options);
+        foreach (var document in documents)
         {
             index.Documents.Add(document);
+        }
+
+        if (options.EmitExternalSymbols)
+        {
+            index.ExternalSymbols.AddRange(externalSymbols);
         }
 
         if (index.Documents.Count <= 0)

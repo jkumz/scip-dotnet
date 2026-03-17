@@ -51,6 +51,13 @@ public static class Program
                 @"and in the default user and system config locations."),
             new Option<bool>("--emit-external-symbols", () => false,
                 "Emit SymbolInformation for symbols defined in external assemblies (NuGet packages, .NET SDK). May increase indexing time."),
+            new Option<List<string>>("--allow-files", () => new List<string>(),
+                "Only emit SCIP Documents for the specified source files (absolute paths). " +
+                "The full project is still loaded for type resolution.")
+            {
+                Arity = ArgumentArity.ZeroOrMore,
+                AllowMultipleArgumentsPerToken = true
+            },
         };
         indexCommand.Handler = CommandHandler.Create(IndexCommandHandler.Process);
         var rootCommand =

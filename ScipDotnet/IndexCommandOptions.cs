@@ -13,5 +13,6 @@ public record IndexCommandOptions(
     int DotnetRestoreTimeout,
     bool SkipDotnetRestore,
     FileInfo? NugetConfigPath,
-    bool EmitExternalSymbols
+    bool EmitExternalSymbols,
+    HashSet<string>? AllowFiles
 );

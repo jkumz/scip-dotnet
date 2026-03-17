@@ -23,7 +23,8 @@ public static class IndexCommandHandler
         int dotnetRestoreTimeout,
         bool skipDotnetRestore,
         FileInfo? nugetConfigPath,
-        bool emitExternalSymbols
+        bool emitExternalSymbols,
+        List<string> allowFiles
         )
     {
         var logger = host.Services.GetRequiredService<ILogger<IndexCommandOptions>>();
@@ -39,6 +40,9 @@ public static class IndexCommandHandler
             return 1;
         }
 
+        var allowFilesSet = allowFiles.Count > 0
+            ? new HashSet<string>(allowFiles.Select(f => Path.GetFullPath(f)))
+            : null;
         var options = new IndexCommandOptions(
             workingDirectory,
             OutputFile(workingDirectory, output),
@@ -49,7 +53,8 @@ public static class IndexCommandHandler
             dotnetRestoreTimeout,
             skipDotnetRestore,
             nugetConfigPath,
-            emitExternalSymbols
+            emitExternalSymbols,
+            allowFilesSet
         );
         await ScipIndex(host, options);
 

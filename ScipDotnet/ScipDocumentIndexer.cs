@@ -503,21 +503,21 @@ public class ScipDocumentIndexer
     {
         if (span.StartLinePosition.Line == span.EndLinePosition.Line)
         {
-            return
-                [
-                    span.StartLinePosition.Line,
-                    span.StartLinePosition.Character,
-                    span.EndLinePosition.Character
-                ];
-        }
-
-        return
-            [
+            return new[]
+            {
                 span.StartLinePosition.Line,
                 span.StartLinePosition.Character,
-                span.EndLinePosition.Line,
                 span.EndLinePosition.Character
-            ];
+            };
+        }
+
+        return new[]
+        {
+            span.StartLinePosition.Line,
+            span.StartLinePosition.Character,
+            span.EndLinePosition.Line,
+            span.EndLinePosition.Character
+        };
     }
 
     /// <summary>

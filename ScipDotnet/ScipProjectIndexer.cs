@@ -129,7 +129,8 @@ public class ScipProjectIndexer
             Language = language,
             RelativePath = document.FilePath == null
                 ? null
-                : Path.GetRelativePath(options.WorkingDirectory.FullName, document.FilePath)
+                : Path.GetRelativePath(options.WorkingDirectory.FullName, document.FilePath),
+            PositionEncoding = Scip.PositionEncoding.Utf16CodeUnitOffsetFromLineStart
         };
         var semanticModel = await document.GetSemanticModelAsync();
         if (semanticModel == null)

@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Scip;
 using Document = Scip.Document;
@@ -241,7 +241,11 @@ public class ScipDocumentIndexer
         if (!isDefinition) return;
 
         // Emit SymbolInformation for this definition occurrence.
-        var info = new SymbolInformation { Symbol = scipSymbol };
+        var info = new SymbolInformation
+        {
+            Symbol = scipSymbol,
+            DisplayName = symbol.Name
+        };
         _doc.Symbols.Add(info);
 
         var symbolSignature = symbol.ToDisplayString(_format);

@@ -1,25 +1,29 @@
   using System.Diagnostics.CodeAnalysis;
 //      ^^^^^^ read_access scip-dotnet nuget . . System/
+//             enclosing_range 0:6-0:24
 //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ import scip-dotnet nuget . . CodeAnalysis/
+//                                      enclosing_range 0:6-0:37
 //             ^^^^^^^^^^^ read_access scip-dotnet nuget . . Diagnostics/
+//                         enclosing_range 0:6-0:24
 //                         ^^^^^^^^^^^^ read_access scip-dotnet nuget . . CodeAnalysis/
+//                                      enclosing_range 0:6-0:37
 
   namespace Main;
 //          ^^^^ read_access scip-dotnet nuget . . Main/
-//               enclosing_range 2:0-19:1
+//               enclosing_range 2:10-2:14
   #pragma warning disable CS0219
   [SuppressMessage("ReSharper", "all")]
 // ^^^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
-//                 enclosing_range 4:0-19:1
+//                 enclosing_range 4:1-4:16
   public class Identifiers
 //             ^^^^^^^^^^^ definition scip-dotnet nuget . . Main/Identifiers#
-//                         enclosing_range 2:0-19:1
+//                         enclosing_range 4:0-19:1
 //                         documentation ```cs\nclass Identifiers\n```
 //                         kind Class
   {
       void SpecialNames()
 //         ^^^^^^^^^^^^ definition scip-dotnet nuget . . Main/Identifiers#SpecialNames().
-//                      enclosing_range 4:0-19:1
+//                      enclosing_range 7:4-18:5
 //                      documentation ```cs\nprivate void Identifiers.SpecialNames()\n```
 //                      kind Method
       {
@@ -36,7 +40,7 @@
 //                 kind Variable
 //                 relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
 //                   ^^^^^^ read_access local 0
-//                          enclosing_range 7:4-18:5
+//                          enclosing_range 10:19-10:25
           var under_score = 0;
 //            ^^^^^^^^^^^ definition local 2
 //                        enclosing_range 7:4-18:5

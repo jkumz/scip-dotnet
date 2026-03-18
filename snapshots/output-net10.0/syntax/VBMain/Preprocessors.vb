@@ -1,27 +1,27 @@
   Imports System.Diagnostics.CodeAnalysis
 '         ^^^^^^ read_access scip-dotnet nuget . . System/
-'                enclosing_range 0:0-0:39
+'                enclosing_range 0:8-0:26
 '         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ import scip-dotnet nuget . . CodeAnalysis/
-'                                         enclosing_range 0:0-0:39
+'                                         enclosing_range 0:8-0:39
 '                ^^^^^^^^^^^ read_access scip-dotnet nuget . . Diagnostics/
-'                            enclosing_range 0:0-0:39
+'                            enclosing_range 0:8-0:26
 '                            ^^^^^^^^^^^^ read_access scip-dotnet nuget . . CodeAnalysis/
-'                                         enclosing_range 0:0-0:39
+'                                         enclosing_range 0:8-0:39
 
   Namespace VBMain
 '           ^^^^^^ read_access scip-dotnet nuget . . VBMain/
-'                  enclosing_range 2:0-2:16
+'                  enclosing_range 2:10-2:16
       <SuppressMessage("ReSharper", "all")>
 '      ^^^^^^^^^^^^^^^ read_access scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
-'                      enclosing_range 3:4-4:30
+'                      enclosing_range 3:5-3:20
       Public Class Preprocessors
 '                  ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Preprocessors#
-'                                enclosing_range 3:4-17:13
+'                                enclosing_range 3:4-4:30
 '                                documentation ```vb\nClass Preprocessors\n```
 '                                kind Class
           Private Function OperatingSystem() As String
 '                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Preprocessors#OperatingSystem().
-'                                          enclosing_range 5:8-16:20
+'                                          enclosing_range 5:8-5:52
 '                                          documentation ```vb\nPrivate Function Preprocessors.OperatingSystem() As String\n```
 '                                          kind Method
   #If WIN32 Then
@@ -40,7 +40,7 @@
   #End If
               Return Os
 '                    ^^ read_access local 0
-'                       enclosing_range 5:8-16:20
+'                       enclosing_range 15:19-15:21
           End Function
       End Class
   End Namespace

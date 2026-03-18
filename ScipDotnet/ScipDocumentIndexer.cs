@@ -232,9 +232,8 @@ public class ScipDocumentIndexer
     /// Records a SCIP occurrence for the given Roslyn symbol at the specified location.
     /// The symbolRoles parameter is a bitset of SymbolRole flags (Definition, Import,
     /// ReadAccess, WriteAccess, ForwardDefinition, etc.).
-    /// When a SyntaxNode is provided, the enclosing declaration range is computed
-    /// by walking up the syntax tree to the nearest MemberDeclarationSyntax or
-    /// LocalFunctionStatementSyntax ancestor.
+    /// - For definitions: the entire definition AST node (excluding doc comments).
+    /// - For references: the parent expression (e.g., a.b for a reference to b).
     /// </summary>
     public void VisitOccurrence(ISymbol? symbol, Location location, int symbolRoles, SyntaxNode? node = null)
     {
@@ -243,6 +242,7 @@ public class ScipDocumentIndexer
             return;
         }
 
+        var isDefinition = (symbolRoles & (int)SymbolRole.Definition) != 0;
         var scipSymbol = CreateScipSymbol(symbol).Value;
         var occurrence = new Occurrence
         {
@@ -255,17 +255,17 @@ public class ScipDocumentIndexer
             occurrence.Range.Add(range);
         }
 
-        // Set enclosing_range by walking up to the nearest declaration ancestor.
+        // Set enclosing_range
         if (node != null)
         {
-            var enclosing = FindEnclosingRange(node);
+            var enclosing = isDefinition
+                ? FindEnclosingRangeForDefinition(node)
+                : FindEnclosingRangeForReference(node);
             if (enclosing != null)
             {
                 occurrence.EnclosingRange.AddRange(LineSpanToRange(enclosing.Value));
             }
         }
-
-        var isDefinition = (symbolRoles & (int)SymbolRole.Definition) != 0;
 
         // Collect external symbol information for cross-assembly references.
         // GetOrAdd ensures each external symbol is processed once; GetDocumentationCommentXml()
@@ -521,21 +521,27 @@ public class ScipDocumentIndexer
     }
 
     /// <summary>
-    /// Walks up the syntax tree from the given node to find the nearest enclosing
-    /// declaration. Checks for MemberDeclarationSyntax (the base class covering
-    /// all C# declaration types), LocalFunctionStatementSyntax (nested methods),
-    /// and VB's DeclarationStatementSyntax. Returns the declaration's line span
-    /// for use as the occurrence's enclosing_range.
+    /// For definition occurrences, returns the span of the definition's own AST node.
+    /// The walker passes the declaration node itself (e.g., MethodDeclarationSyntax,
+    /// ClassDeclarationSyntax), so if the node is a declaration type, its own span
+    /// is returned. Uses .Span (not .FullSpan), so XML doc comments are excluded.
+    /// Falls back to walking Ancestors() for edge cases.
     /// </summary>
-    /// <param name="node">The syntax node to start walking from.</param>
-    /// <returns>The enclosing declaration's line span, or null if none found.</returns>
-    private static FileLinePositionSpan? FindEnclosingRange(SyntaxNode node)
+    /// <param name="node">The declaration syntax node.</param>
+    /// <returns>The definition's line span, or null if none found.</returns>
+    private static FileLinePositionSpan? FindEnclosingRangeForDefinition(SyntaxNode node)
     {
+        if (node is Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax
+            or Microsoft.CodeAnalysis.CSharp.Syntax.LocalFunctionStatementSyntax
+            or Microsoft.CodeAnalysis.VisualBasic.Syntax.DeclarationStatementSyntax)
+        {
+            return node.SyntaxTree.GetLineSpan(node.Span);
+        }
+
+        // Fallback: walk ancestors for nodes that aren't declarations themselves
+        // (e.g., parameter nodes, enum members).
         foreach (var ancestor in node.Ancestors())
         {
-            // C#: MemberDeclarationSyntax covers classes, structs, methods, properties, fields,
-            // enums, delegates, namespaces, etc. LocalFunctionStatementSyntax covers nested methods.
-            // VB: DeclarationStatementSyntax covers equivalent VB declaration nodes.
             if (ancestor is Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax
                 or Microsoft.CodeAnalysis.CSharp.Syntax.LocalFunctionStatementSyntax
                 or Microsoft.CodeAnalysis.VisualBasic.Syntax.DeclarationStatementSyntax)
@@ -544,6 +550,65 @@ public class ScipDocumentIndexer
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// For reference occurrences, walks up the expression chain to find the parent
+    /// expression per the SCIP spec. Walks through MemberAccessExpression nodes
+    /// and extends through InvocationExpression nodes that consume the access.
+    ///
+    /// Examples:
+    ///   a.b         → returns span of a.b
+    ///   a.b(41)     → returns span of a.b(41)
+    ///   a.b(41).f(42).g(43) for f → returns span of a.b(41).f(42)
+    ///   standalone x in 'return x' → returns span of x
+    /// </summary>
+    /// <param name="node">The identifier syntax node for the reference.</param>
+    /// <returns>The parent expression's line span, or null if none found.</returns>
+    private static FileLinePositionSpan? FindEnclosingRangeForReference(SyntaxNode node)
+    {
+        var current = node.Parent;
+        if (current == null)
+        {
+            return node.SyntaxTree.GetLineSpan(node.Span);
+        }
+
+        // If the parent is not an expression, the identifier is the full expression.
+        if (current is not Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax
+            and not Microsoft.CodeAnalysis.VisualBasic.Syntax.ExpressionSyntax)
+        {
+            return node.SyntaxTree.GetLineSpan(node.Span);
+        }
+
+        // Walk up the expression chain: extend through MemberAccess → Invocation patterns.
+        while (current.Parent != null)
+        {
+            var parent = current.Parent;
+
+            // If parent is an InvocationExpression and we are its invoked expression, extend.
+            if ((parent is Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax csInvocation
+                 && csInvocation.Expression == current)
+                || (parent is Microsoft.CodeAnalysis.VisualBasic.Syntax.InvocationExpressionSyntax vbInvocation
+                    && vbInvocation.Expression == current))
+            {
+                current = parent;
+                continue;
+            }
+
+            // If parent is a MemberAccessExpression and we are its name, extend.
+            if ((parent is Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax csMember
+                 && csMember.Name == current)
+                || (parent is Microsoft.CodeAnalysis.VisualBasic.Syntax.MemberAccessExpressionSyntax vbMember
+                    && vbMember.Name == current))
+            {
+                current = parent;
+                continue;
+            }
+
+            break;
+        }
+
+        return current.SyntaxTree.GetLineSpan(current.Span);
     }
 
     private static bool IsLocalSymbol(ISymbol sym)

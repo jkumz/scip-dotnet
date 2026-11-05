@@ -1,11 +1,11 @@
   using System.Diagnostics.CodeAnalysis;
 //      ^^^^^^ reference scip-dotnet nuget . . System/
 //             enclosing_range 0:6-0:24
-//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 //                                      enclosing_range 0:6-0:37
-//             ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
+//             ^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/
 //                         enclosing_range 0:6-0:24
-//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 //                                      enclosing_range 0:6-0:37
 
   namespace Main;
@@ -13,7 +13,7 @@
 //               enclosing_range 2:10-2:14
 
   [SuppressMessage("ReSharper", "all")]
-// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/CodeAnalysis/SuppressMessageAttribute#`.ctor`().
 //                 enclosing_range 4:1-4:16
   public class Fields
 //             ^^^^^^ definition scip-dotnet nuget . . Main/Fields#

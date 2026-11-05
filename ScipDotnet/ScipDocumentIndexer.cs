@@ -99,9 +99,15 @@ public class ScipDocumentIndexer
             return CreateLocalScipSymbol(sym);
         }
 
-        var owner = sym.Kind == SymbolKind.Namespace
-            ? CreateScipPackageSymbol(sym)
-            : CreateScipSymbol(sym.ContainingSymbol);
+        // A nested namespace is owned by its containing namespace, so `A.B.C` yields the
+        // descriptors `A/B/C/`. A top-level namespace (directly under the global namespace)
+        // and the global namespace itself are owned by the package.
+        var owner = sym switch
+        {
+            INamespaceSymbol { ContainingNamespace.IsGlobalNamespace: false } ns => CreateScipSymbol(ns.ContainingNamespace),
+            INamespaceSymbol => CreateScipPackageSymbol(sym),
+            _ => CreateScipSymbol(sym.ContainingSymbol),
+        };
 
         if (owner.IsLocal())
         {

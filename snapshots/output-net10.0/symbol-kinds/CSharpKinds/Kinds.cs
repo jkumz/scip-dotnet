@@ -39,7 +39,7 @@
 //                                 relationship implementation scip-dotnet nuget System.Runtime 8.0.0.0 System/MulticastDelegate#
 //                                 relationship implementation scip-dotnet nuget System.Runtime 8.0.0.0 System/Delegate#
 //                                 relationship implementation scip-dotnet nuget System.Runtime 8.0.0.0 System/ICloneable#
-//                                 relationship implementation scip-dotnet nuget System.Runtime 8.0.0.0 Serialization/ISerializable#
+//                                 relationship implementation scip-dotnet nuget System.Runtime 8.0.0.0 System/Runtime/Serialization/ISerializable#
 
       public class Kinds
 //                 ^^^^^ definition scip-dotnet nuget . . SymbolKinds/Kinds#

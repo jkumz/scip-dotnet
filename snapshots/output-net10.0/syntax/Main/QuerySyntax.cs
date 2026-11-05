@@ -1,11 +1,11 @@
   using System.Diagnostics.CodeAnalysis;
 //      ^^^^^^ reference scip-dotnet nuget . . System/
 //             enclosing_range 0:6-0:24
-//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 //                                      enclosing_range 0:6-0:37
-//             ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
+//             ^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/
 //                         enclosing_range 0:6-0:24
-//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 //                                      enclosing_range 0:6-0:37
 
   namespace Main;
@@ -13,7 +13,7 @@
 //               enclosing_range 2:10-2:14
 
   [SuppressMessage("ReSharper", "all")]
-// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/CodeAnalysis/SuppressMessageAttribute#`.ctor`().
 //                 enclosing_range 4:1-4:16
   public class QuerySyntax
 //             ^^^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#
@@ -26,7 +26,7 @@
 //                   ^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#sourceA.
 //                           enclosing_range 7:4-7:50
 //                           documentation ```cs\nprivate List<IGeneric> QuerySyntax.sourceA\n```
-//                           relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                           relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
 //                                      ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
 //                                               enclosing_range 7:38-7:46
       List<IGeneric> sourceB = new List<IGeneric>();
@@ -35,7 +35,7 @@
 //                   ^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#sourceB.
 //                           enclosing_range 8:4-8:50
 //                           documentation ```cs\nprivate List<IGeneric> QuerySyntax.sourceB\n```
-//                           relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                           relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
 //                                      ^^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#IGeneric#
 //                                               enclosing_range 8:38-8:46
 
@@ -59,7 +59,7 @@
 //            ^ definition local 0
 //              enclosing_range 15:4-18:5
 //              documentation ```cs\nIEnumerable<string>? x\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 1
 //                       enclosing_range 15:4-18:5
 //                       documentation ```cs\n? a\n```
@@ -80,7 +80,7 @@
 //            ^ definition local 2
 //              enclosing_range 20:4-24:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string Name>>? x\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 3
 //                       enclosing_range 20:4-24:5
 //                       documentation ```cs\n? a\n```
@@ -96,7 +96,7 @@
 //            ^ definition local 6
 //              enclosing_range 20:4-24:5
 //              documentation ```cs\nIEnumerable<string>? b\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 7
 //                       enclosing_range 20:4-24:5
 //                       documentation ```cs\n? a\n```
@@ -117,7 +117,7 @@
 //            ^ definition local 8
 //              enclosing_range 26:4-29:5
 //              documentation ```cs\nIEnumerable<IGeneric>? x\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 9
 //                       enclosing_range 26:4-29:5
 //                       documentation ```cs\n? a\n```
@@ -142,7 +142,7 @@
 //            ^ definition local 10
 //              enclosing_range 31:4-36:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string A, string B>>? x\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 11
 //                       enclosing_range 31:4-36:5
 //                       documentation ```cs\n? a\n```
@@ -178,7 +178,7 @@
 //            ^ definition local 16
 //              enclosing_range 38:4-43:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string A, string B>>? x\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 17
 //                       enclosing_range 38:4-43:5
 //                       documentation ```cs\n? a\n```
@@ -222,7 +222,7 @@
 //            ^ definition local 19
 //              enclosing_range 45:4-51:5
 //              documentation ```cs\nIEnumerable<<anonymous type: string A, string B>>? x\n```
-//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//              relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^ definition local 20
 //                       enclosing_range 45:4-51:5
 //                       documentation ```cs\n? a\n```
@@ -267,19 +267,19 @@
 //                                ^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students1)
 //                                          enclosing_range 53:4-59:5
 //                                          documentation ```cs\nList<Student> students1\n```
-//                                          relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                          relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
 //                                                ^^^^^^^ reference scip-dotnet nuget . . Main/QuerySyntax#Student#
 //                                                        enclosing_range 53:48-53:55
 //                                                         ^^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#JoinInto().(students2)
 //                                                                   enclosing_range 53:4-59:5
 //                                                                   documentation ```cs\nList<Student> students2\n```
-//                                                                   relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                                                   relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
       {
           var innerGroupJoinQuery =
 //            ^^^^^^^^^^^^^^^^^^^ definition local 22
 //                                enclosing_range 53:4-59:5
 //                                documentation ```cs\nIEnumerable<<anonymous type: string Student, interface IEnumerable<Student> Students>>? innerGroupJoinQuery\n```
-//                                relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//                                relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
               from student1 in students1
 //                 ^^^^^^^^ definition local 23
 //                          enclosing_range 53:4-59:5
@@ -325,13 +325,13 @@
 //                                    ^^^^^^^^ definition scip-dotnet nuget . . Main/QuerySyntax#Continuation().(students)
 //                                             enclosing_range 61:4-69:5
 //                                             documentation ```cs\nList<Student> students\n```
-//                                             relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                             relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
       {
           var sortedGroups =
 //            ^^^^^^^^^^^^ definition local 29
 //                         enclosing_range 61:4-69:5
 //                         documentation ```cs\nIOrderedEnumerable<IGrouping<char, Student>>? sortedGroups\n```
-//                         relationship type_definition scip-dotnet nuget System.Linq 10.0.0.0 Linq/IOrderedEnumerable#
+//                         relationship type_definition scip-dotnet nuget System.Linq 10.0.0.0 System/Linq/IOrderedEnumerable#
               from student in students
 //                 ^^^^^^^ definition local 30
 //                         enclosing_range 61:4-69:5
@@ -360,7 +360,7 @@
               orderby newGroup.Key
 //                    ^^^^^^^^ reference local 31
 //                             enclosing_range 67:20-67:32
-//                             ^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 Linq/IGrouping#Key.
+//                             ^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 System/Linq/IGrouping#Key.
 //                                 enclosing_range 67:20-67:32
               select newGroup;
 //                   ^^^^^^^^ reference local 31

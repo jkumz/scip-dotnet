@@ -1,70 +1,70 @@
   Imports System.Diagnostics.CodeAnalysis
 '         ^^^^^^ reference scip-dotnet nuget . . System/
 '                enclosing_range 0:8-0:26
-'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 '                                         enclosing_range 0:8-0:39
-'                ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
+'                ^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/
 '                            enclosing_range 0:8-0:26
-'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 '                                         enclosing_range 0:8-0:39
 
   Namespace VBMain
-'           ^^^^^^ reference scip-dotnet nuget . . VBMain/
+'           ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/
 '                  enclosing_range 2:10-2:16
       <SuppressMessage("ReSharper", "all")>
-'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/CodeAnalysis/SuppressMessageAttribute#`.ctor`().
 '                      enclosing_range 3:5-3:20
       Public Class Classes
-'                  ^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#
+'                  ^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#
 '                          enclosing_range 3:4-4:24
 '                          documentation ```vb\nClass Classes\n```
 
           Public Name As String
-'                ^^^^ definition scip-dotnet nuget . . VBMain/Classes#Name.
+'                ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#Name.
 '                     enclosing_range 6:8-6:29
 '                     documentation ```vb\nPublic Classes.Name As String\n```
 '                     relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
           Public Const IntConstant As Integer = 1
-'                      ^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#IntConstant.
+'                      ^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#IntConstant.
 '                                  enclosing_range 7:8-7:47
 '                                  documentation ```vb\nPublic Const Classes.IntConstant As Integer = 1\n```
 '                                  relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
           Public Const StringConstant As String = "hello"
-'                      ^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#StringConstant.
+'                      ^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#StringConstant.
 '                                     enclosing_range 8:8-8:55
 '                                     documentation ```vb\nPublic Const Classes.StringConstant As String = "hello"\n```
 '                                     relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
 
           Public Sub New(ByVal name As Integer)
-'                    ^^^ definition scip-dotnet nuget . . VBMain/Classes#`.ctor`().
+'                    ^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#`.ctor`().
 '                        enclosing_range 10:8-10:45
 '                        documentation ```vb\nPublic Sub Classes.New(name As Integer)\n```
-'                              ^^^^ definition scip-dotnet nuget . . VBMain/Classes#`.ctor`().(name)
+'                              ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#`.ctor`().(name)
 '                                   enclosing_range 10:8-10:45
 '                                   documentation ```vb\nname As Integer\n```
 '                                   relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
               Me.Name = "name"
-'                ^^^^ reference scip-dotnet nuget . . VBMain/Classes#Name.
+'                ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#Name.
 '                     enclosing_range 11:12-11:19
           End Sub
 
           Public Sub New(ByVal name As String)
-'                    ^^^ definition scip-dotnet nuget . . VBMain/Classes#`.ctor`(+1).
+'                    ^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#`.ctor`(+1).
 '                        enclosing_range 14:8-14:44
 '                        documentation ```vb\nPublic Sub Classes.New(name As String)\n```
-'                              ^^^^ definition scip-dotnet nuget . . VBMain/Classes#`.ctor`(+1).(name)
+'                              ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#`.ctor`(+1).(name)
 '                                   enclosing_range 14:8-14:44
 '                                   documentation ```vb\nname As String\n```
 '                                   relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
               Me.Name = name
-'                ^^^^ reference scip-dotnet nuget . . VBMain/Classes#Name.
+'                ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#Name.
 '                     enclosing_range 15:12-15:19
-'                       ^^^^ reference scip-dotnet nuget . . VBMain/Classes#`.ctor`(+1).(name)
+'                       ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#`.ctor`(+1).(name)
 '                            enclosing_range 15:22-15:26
           End Sub
 
           Protected Overrides Sub Finalize()
-'                                 ^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#Finalize().
+'                                 ^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#Finalize().
 '                                          enclosing_range 18:8-18:42
 '                                          documentation ```vb\nProtected Overrides Sub Classes.Finalize()\n```
 '                                          relationship implementation reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Object#Finalize().
@@ -76,24 +76,24 @@
           End Sub
 
           Public Class ObjectClass
-'                      ^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#ObjectClass#
+'                      ^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#ObjectClass#
 '                                  enclosing_range 22:8-22:32
 '                                  documentation ```vb\nClass ObjectClass\n```
-'                                  relationship implementation scip-dotnet nuget . . VBMain/Classes#SomeInterface#
+'                                  relationship implementation scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface#
               Inherits Object
               Implements SomeInterface
-'                        ^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Classes#SomeInterface#
+'                        ^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface#
 '                                      enclosing_range 24:23-24:36
           End Class
 
           Public Partial Class PartialClass
-'                              ^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#PartialClass#
+'                              ^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#PartialClass#
 '                                           enclosing_range 27:8-27:41
 '                                           documentation ```vb\nClass PartialClass\n```
           End Class
 
           Class TypeParameterClass(Of T)
-'               ^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#TypeParameterClass#
+'               ^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#TypeParameterClass#
 '                                  enclosing_range 30:8-30:38
 '                                  documentation ```vb\nClass TypeParameterClass(Of T)\n```
 '                                     ^ definition local 0
@@ -102,7 +102,7 @@
           End Class
 
           Friend Class InternalMultipleTypeParametersClass(Of T1, T2)
-'                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#InternalMultipleTypeParametersClass#
+'                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#InternalMultipleTypeParametersClass#
 '                                                          enclosing_range 33:8-33:67
 '                                                          documentation ```vb\nClass InternalMultipleTypeParametersClass(Of T1, T2)\n```
 '                                                             ^^ definition local 1
@@ -114,7 +114,7 @@
           End Class
 
           Interface ICovariantContravariant(Of In T1, Out T2)
-'                   ^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#ICovariantContravariant#
+'                   ^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#ICovariantContravariant#
 '                                           enclosing_range 36:8-36:59
 '                                           documentation ```vb\nInterface ICovariantContravariant(Of In T1, Out T2)\n```
 '                                                 ^^ definition local 3
@@ -124,10 +124,10 @@
 '                                                            enclosing_range 36:8-36:59
 '                                                            documentation ```vb\nOut T2\n```
               Sub Method1(ByVal t1 As T1)
-'                 ^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#ICovariantContravariant#Method1().
+'                 ^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#ICovariantContravariant#Method1().
 '                         enclosing_range 37:12-37:39
 '                         documentation ```vb\nSub ICovariantContravariant(Of In T1, Out T2).Method1(t1 As T1)\n```
-'                               ^^ definition scip-dotnet nuget . . VBMain/Classes#ICovariantContravariant#Method1().(t1)
+'                               ^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#ICovariantContravariant#Method1().(t1)
 '                                  enclosing_range 37:12-37:39
 '                                  documentation ```vb\nt1 As T1\n```
 '                                  relationship type_definition local 3
@@ -135,7 +135,7 @@
 '                                        enclosing_range 37:36-37:38
 
               Function Method2() As T2
-'                      ^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#ICovariantContravariant#Method2().
+'                      ^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#ICovariantContravariant#Method2().
 '                              enclosing_range 39:12-39:36
 '                              documentation ```vb\nFunction ICovariantContravariant(Of In T1, Out T2).Method2() As T2\n```
 '                                   ^^ reference local 4
@@ -144,7 +144,7 @@
           End Interface
 
           Public Class StructConstraintClass(Of T As Structure)
-'                      ^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#StructConstraintClass#
+'                      ^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#StructConstraintClass#
 '                                            enclosing_range 43:8-43:61
 '                                            documentation ```vb\nClass StructConstraintClass(Of T As Structure)\n```
 '                                               ^ definition local 5
@@ -153,7 +153,7 @@
           End Class
 
           Public Class ClassConstraintClass(Of T As Class)
-'                      ^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#ClassConstraintClass#
+'                      ^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#ClassConstraintClass#
 '                                           enclosing_range 46:8-46:56
 '                                           documentation ```vb\nClass ClassConstraintClass(Of T As Class)\n```
 '                                              ^ definition local 6
@@ -162,7 +162,7 @@
           End Class
 
           Public Class NewConstraintClass(Of T As New)
-'                      ^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#NewConstraintClass#
+'                      ^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#NewConstraintClass#
 '                                         enclosing_range 49:8-49:52
 '                                         documentation ```vb\nClass NewConstraintClass(Of T As New)\n```
 '                                            ^ definition local 7
@@ -171,80 +171,80 @@
           End Class
 
           Public Class TypeParameterConstraintClass(Of T As SomeInterface)
-'                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#TypeParameterConstraintClass#
+'                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#TypeParameterConstraintClass#
 '                                                   enclosing_range 52:8-52:72
 '                                                   documentation ```vb\nClass TypeParameterConstraintClass(Of T As SomeInterface)\n```
 '                                                      ^ definition local 8
 '                                                        enclosing_range 52:8-52:72
 '                                                        documentation ```vb\nT\n```
-'                                                           ^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Classes#SomeInterface#
+'                                                           ^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface#
 '                                                                         enclosing_range 52:58-52:71
           End Class
 
           Private Class MultipleTypeParameterConstraintsClass(Of T1 As {SomeInterface, SomeInterface2, New}, T2 As SomeInterface2)
-'                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#MultipleTypeParameterConstraintsClass#
+'                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#MultipleTypeParameterConstraintsClass#
 '                                                             enclosing_range 55:8-55:128
 '                                                             documentation ```vb\nClass MultipleTypeParameterConstraintsClass(Of T1 As {SomeInterface, SomeInterface2, New}, T2 As SomeInterface2)\n```
 '                                                                ^^ definition local 9
 '                                                                   enclosing_range 55:8-55:128
 '                                                                   documentation ```vb\nT1\n```
-'                                                                       ^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Classes#SomeInterface#
+'                                                                       ^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface#
 '                                                                                     enclosing_range 55:70-55:83
-'                                                                                      ^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Classes#SomeInterface2#
+'                                                                                      ^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface2#
 '                                                                                                     enclosing_range 55:85-55:99
 '                                                                                                            ^^ definition local 10
 '                                                                                                               enclosing_range 55:8-55:128
 '                                                                                                               documentation ```vb\nT2\n```
-'                                                                                                                  ^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Classes#SomeInterface2#
+'                                                                                                                  ^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface2#
 '                                                                                                                                 enclosing_range 55:113-55:127
           End Class
 
           Class IndexClass
-'               ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#IndexClass#
+'               ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#
 '                          enclosing_range 58:8-58:24
 '                          documentation ```vb\nClass IndexClass\n```
               Private a As Boolean
-'                     ^ definition scip-dotnet nuget . . VBMain/Classes#IndexClass#a.
+'                     ^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#a.
 '                       enclosing_range 59:12-59:32
 '                       documentation ```vb\nPrivate IndexClass.a As Boolean\n```
 '                       relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Boolean#
 
               Default Public Property Item(ByVal index As Integer) As Boolean
-'                                     ^^^^ definition scip-dotnet nuget . . VBMain/Classes#IndexClass#Item.
+'                                     ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#Item.
 '                                          enclosing_range 61:12-61:75
 '                                          documentation ```vb\nPublic Default Property IndexClass.Item(index As Integer) As Boolean\n```
 '                                          relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Boolean#
-'                                                ^^^^^ definition scip-dotnet nuget . . VBMain/Classes#IndexClass#Item.(index)
+'                                                ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#Item.(index)
 '                                                      enclosing_range 61:12-61:75
 '                                                      documentation ```vb\nindex As Integer\n```
 '                                                      relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
                   Get
                       Return a
-'                            ^ reference scip-dotnet nuget . . VBMain/Classes#IndexClass#a.
+'                            ^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#a.
 '                              enclosing_range 63:27-63:28
                   End Get
                   Set(ByVal value As Boolean)
-'                           ^^^^^ definition scip-dotnet nuget . . VBMain/Classes#IndexClass#set_Item().(value)
+'                           ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#set_Item().(value)
 '                                 enclosing_range 65:16-65:43
 '                                 documentation ```vb\nvalue As Boolean\n```
 '                                 relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Boolean#
                       a = value
-'                     ^ reference scip-dotnet nuget . . VBMain/Classes#IndexClass#a.
+'                     ^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#a.
 '                       enclosing_range 66:20-66:21
-'                         ^^^^^ reference scip-dotnet nuget . . VBMain/Classes#IndexClass#set_Item().(value)
+'                         ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Classes#IndexClass#set_Item().(value)
 '                               enclosing_range 66:24-66:29
                   End Set
               End Property
           End Class
 
           Interface SomeInterface
-'                   ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#SomeInterface#
+'                   ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface#
 '                                 enclosing_range 71:8-71:31
 '                                 documentation ```vb\nInterface SomeInterface\n```
           End Interface
 
           Friend Interface SomeInterface2
-'                          ^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Classes#SomeInterface2#
+'                          ^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Classes#SomeInterface2#
 '                                         enclosing_range 74:8-74:39
 '                                         documentation ```vb\nInterface SomeInterface2\n```
           End Interface

@@ -1,26 +1,26 @@
   Imports System.Diagnostics.CodeAnalysis
 '         ^^^^^^ reference scip-dotnet nuget . . System/
 '                enclosing_range 0:8-0:26
-'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 '                                         enclosing_range 0:8-0:39
-'                ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
+'                ^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/
 '                            enclosing_range 0:8-0:26
-'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 '                                         enclosing_range 0:8-0:39
 
   Namespace VBMain
-'           ^^^^^^ reference scip-dotnet nuget . . VBMain/
+'           ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/
 '                  enclosing_range 2:10-2:16
       <SuppressMessage("ReSharper", "all")>
-'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/CodeAnalysis/SuppressMessageAttribute#`.ctor`().
 '                      enclosing_range 3:5-3:20
       Public Class Expressions
-'                  ^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#
+'                  ^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#
 '                              enclosing_range 3:4-4:28
 '                              documentation ```vb\nClass Expressions\n```
 
           Private Sub AssignmentToPrefixUnaryExpressions()
-'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AssignmentToPrefixUnaryExpressions().
+'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AssignmentToPrefixUnaryExpressions().
 '                                                        enclosing_range 6:8-6:56
 '                                                        documentation ```vb\nPrivate Sub Expressions.AssignmentToPrefixUnaryExpressions()\n```
               Dim A = 42
@@ -66,7 +66,7 @@
           End Sub
 
           Private Sub AssignmentToPrefixBinaryExpressions()
-'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AssignmentToPrefixBinaryExpressions().
+'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AssignmentToPrefixBinaryExpressions().
 '                                                         enclosing_range 17:8-17:57
 '                                                         documentation ```vb\nPrivate Sub Expressions.AssignmentToPrefixBinaryExpressions()\n```
               Dim A = 42
@@ -161,7 +161,7 @@
           End Sub
 
           Private Sub AssignmentToBinaryEqualityExpression()
-'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AssignmentToBinaryEqualityExpression().
+'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AssignmentToBinaryEqualityExpression().
 '                                                          enclosing_range 33:8-33:58
 '                                                          documentation ```vb\nPrivate Sub Expressions.AssignmentToBinaryEqualityExpression()\n```
               Dim A = True
@@ -229,7 +229,7 @@
           End Sub
 
           Private Sub AssignmentToBinaryExpression()
-'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AssignmentToBinaryExpression().
+'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AssignmentToBinaryExpression().
 '                                                  enclosing_range 46:8-46:50
 '                                                  documentation ```vb\nPrivate Sub Expressions.AssignmentToBinaryExpression()\n```
               Dim A = 42
@@ -285,56 +285,56 @@
           End Sub
 
           Structure Struct
-'                   ^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Struct#
+'                   ^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Struct#
 '                          enclosing_range 59:8-59:24
 '                          documentation ```vb\nStructure Struct\n```
               Public [Property] As Integer
-'                    ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Struct#Property.
+'                    ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Struct#Property.
 '                               enclosing_range 60:12-60:40
 '                               documentation ```vb\nPublic Struct.Property As Integer\n```
 '                               relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
           End Structure
 
           Structure IndexedClass
-'                   ^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#
+'                   ^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#
 '                                enclosing_range 63:8-63:30
 '                                documentation ```vb\nStructure IndexedClass\n```
               Public [Property] As Integer
-'                    ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#Property.
+'                    ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#Property.
 '                               enclosing_range 64:12-64:40
 '                               documentation ```vb\nPublic IndexedClass.Property As Integer\n```
 '                               relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
 
               Default Public Property Item(ByVal index As Integer) As Integer
-'                                     ^^^^ definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#Item.
+'                                     ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#Item.
 '                                          enclosing_range 66:12-66:75
 '                                          documentation ```vb\nPublic Default Property IndexedClass.Item(index As Integer) As Integer\n```
 '                                          relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
-'                                                ^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#Item.(index)
+'                                                ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#Item.(index)
 '                                                      enclosing_range 66:12-66:75
 '                                                      documentation ```vb\nindex As Integer\n```
 '                                                      relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
                   Get
                       Return [Property]
-'                            ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#IndexedClass#Property.
+'                            ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#Property.
 '                                       enclosing_range 68:27-68:37
                   End Get
                   Set(ByVal value As Integer)
-'                           ^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#set_Item().(value)
+'                           ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#set_Item().(value)
 '                                 enclosing_range 70:16-70:43
 '                                 documentation ```vb\nvalue As Integer\n```
 '                                 relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
                       [Property] = value
-'                     ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#IndexedClass#Property.
+'                     ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#Property.
 '                                enclosing_range 71:20-71:30
-'                                  ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#IndexedClass#set_Item().(value)
+'                                  ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#set_Item().(value)
 '                                        enclosing_range 71:33-71:38
                   End Set
               End Property
           End Structure
 
           Private Sub AssignmentToLeftValueTypes()
-'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AssignmentToLeftValueTypes().
+'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AssignmentToLeftValueTypes().
 '                                                enclosing_range 76:8-76:48
 '                                                documentation ```vb\nPrivate Sub Expressions.AssignmentToLeftValueTypes()\n```
               Dim E As (A As Integer, B As Integer) = (1, 2)
@@ -351,24 +351,24 @@
 '                 ^ definition local 12
 '                   enclosing_range 76:8-89:15
 '                   documentation ```vb\nC As Structure Struct\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Struct#
-'                         ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Struct#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Struct#
+'                         ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Struct#
 '                                enclosing_range 79:20-81:13
                   .[Property] = 42
-'                  ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Struct#Property.
+'                  ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Struct#Property.
 '                             enclosing_range 80:17-80:27
               }
               C.[Property] = 1
 '             ^ reference local 12
 '               enclosing_range 82:12-82:24
-'               ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Struct#Property.
+'               ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Struct#Property.
 '                          enclosing_range 82:12-82:24
               Dim D = New IndexedClass()
 '                 ^ definition local 13
 '                   enclosing_range 76:8-89:15
 '                   documentation ```vb\nD As Structure IndexedClass\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#
-'                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#IndexedClass#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#
+'                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#
 '                                      enclosing_range 83:20-83:38
               D(E.B) = 1
 '             ^ reference local 13
@@ -381,11 +381,11 @@
 '                 ^ definition local 15
 '                   enclosing_range 76:8-89:15
 '                   documentation ```vb\nX As Structure IndexedClass\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#IndexedClass#
-'                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#IndexedClass#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#
+'                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#
 '                                      enclosing_range 85:20-87:13
                   .[Property] = 1
-'                  ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#IndexedClass#Property.
+'                  ^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#IndexedClass#Property.
 '                             enclosing_range 86:17-86:27
               }
               E.A = 1
@@ -396,7 +396,7 @@
           End Sub
 
           Private Sub TernaryExpression()
-'                     ^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#TernaryExpression().
+'                     ^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#TernaryExpression().
 '                                       enclosing_range 91:8-91:39
 '                                       documentation ```vb\nPrivate Sub Expressions.TernaryExpression()\n```
               Dim X = True
@@ -425,111 +425,111 @@
           End Sub
 
           Class Cast
-'               ^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Cast#
+'               ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                    enclosing_range 98:8-98:18
 '                    documentation ```vb\nClass Cast\n```
               Public Nested As Cast
-'                    ^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Cast#Nested.
+'                    ^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Nested.
 '                           enclosing_range 99:12-99:33
 '                           documentation ```vb\nPublic Cast.Nested As Cast\n```
-'                           relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Cast#
-'                              ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                           relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
+'                              ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                   enclosing_range 99:29-99:33
               Public Nested2 As Cast2
-'                    ^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Cast#Nested2.
+'                    ^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Nested2.
 '                            enclosing_range 100:12-100:35
 '                            documentation ```vb\nPublic Cast.Nested2 As Cast2\n```
-'                            relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Cast#Cast2#
-'                               ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Cast2#
+'                            relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Cast2#
+'                               ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Cast2#
 '                                     enclosing_range 100:30-100:35
 
               Public Function Plus(ByVal other As Cast) As Cast
-'                             ^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Cast#Plus().
+'                             ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Plus().
 '                                  enclosing_range 102:12-102:61
 '                                  documentation ```vb\nPublic Function Cast.Plus(other As Cast) As Cast\n```
-'                                        ^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Cast#Plus().(other)
+'                                        ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Plus().(other)
 '                                              enclosing_range 102:12-102:61
 '                                              documentation ```vb\nother As Cast\n```
-'                                              relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Cast#
-'                                                 ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                              relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
+'                                                 ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                                      enclosing_range 102:48-102:52
-'                                                          ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                                          ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                                               enclosing_range 102:57-102:61
                   Nested = other
-'                 ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Nested.
+'                 ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Nested.
 '                        enclosing_range 103:16-103:22
-'                          ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Plus().(other)
+'                          ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Plus().(other)
 '                                enclosing_range 103:25-103:30
                   Return Me
               End Function
 
               Public Class Cast2
-'                          ^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Cast#Cast2#
+'                          ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Cast2#
 '                                enclosing_range 107:12-107:30
 '                                documentation ```vb\nClass Cast2\n```
               End Class
           End Class
 
           Private Function CastExpressions() As Integer
-'                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#CastExpressions().
+'                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#CastExpressions().
 '                                          enclosing_range 111:8-111:53
 '                                          documentation ```vb\nPrivate Function Expressions.CastExpressions() As Integer\n```
               Dim A As Object = New Cast()
 '                 ^ definition local 21
 '                   enclosing_range 111:8-121:20
 '                   documentation ```vb\nA As Object\n```
-'                                   ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                   ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                        enclosing_range 112:30-112:40
               Dim B As Object = New Cast()
 '                 ^ definition local 22
 '                   enclosing_range 111:8-121:20
 '                   documentation ```vb\nB As Object\n```
-'                                   ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                   ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                        enclosing_range 113:30-113:40
               Dim C As Cast = (CType(A, Cast)).Plus(CType(B, Cast))
 '                 ^ definition local 23
 '                   enclosing_range 111:8-121:20
 '                   documentation ```vb\nC As Class Cast\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Cast#
-'                      ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
+'                      ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                           enclosing_range 114:21-114:25
 '                                    ^ reference local 21
 '                                      enclosing_range 114:29-114:43
-'                                       ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                       ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                            enclosing_range 114:29-114:43
-'                                              ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Plus().
+'                                              ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Plus().
 '                                                   enclosing_range 114:28-114:65
 '                                                         ^ reference local 22
 '                                                           enclosing_range 114:50-114:64
-'                                                            ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                                            ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                                                 enclosing_range 114:50-114:64
               Dim D As Cast = CType(New Object() {A, B}(0), Cast)
 '                 ^ definition local 24
 '                   enclosing_range 111:8-121:20
 '                   documentation ```vb\nD As Class Cast\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Cast#
-'                      ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
+'                      ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                           enclosing_range 115:21-115:25
 '                                                 ^ reference local 21
 '                                                   enclosing_range 115:47-115:53
 '                                                    ^ reference local 22
 '                                                      enclosing_range 115:47-115:53
-'                                                           ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                                           ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                                                enclosing_range 115:28-115:63
               Dim E = CType((C.Nested.Nested2), Cast.Cast2)
 '                 ^ definition local 25
 '                   enclosing_range 111:8-121:20
 '                   documentation ```vb\nE As Class Cast2\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Cast#Cast2#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Cast2#
 '                            ^ reference local 23
 '                              enclosing_range 116:27-116:35
-'                              ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Nested.
+'                              ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Nested.
 '                                     enclosing_range 116:27-116:35
-'                                     ^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Nested2.
+'                                     ^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Nested2.
 '                                             enclosing_range 116:27-116:43
-'                                               ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#
+'                                               ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#
 '                                                    enclosing_range 116:46-116:56
-'                                                    ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Cast#Cast2#
+'                                                    ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Cast#Cast2#
 '                                                          enclosing_range 116:46-116:56
               Dim F = CType((1), Int32)
 '                 ^ definition local 26
@@ -562,7 +562,7 @@
           End Function
 
           Private Function AnonymousObject() As Object
-'                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AnonymousObject().
+'                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AnonymousObject().
 '                                          enclosing_range 123:8-123:52
 '                                          documentation ```vb\nPrivate Function Expressions.AnonymousObject() As Object\n```
               Dim X = New With {Key .Helper = ""}
@@ -589,47 +589,47 @@
           End Function
 
           Class ObjectCreationClass
-'               ^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#
+'               ^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#
 '                                   enclosing_range 129:8-129:33
 '                                   documentation ```vb\nClass ObjectCreationClass\n```
               Public Field As D
-'                    ^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#Field.
+'                    ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#Field.
 '                          enclosing_range 130:12-130:29
 '                          documentation ```vb\nPublic ObjectCreationClass.Field As D\n```
-'                          relationship type_definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
-'                             ^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
+'                          relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
+'                             ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
 '                               enclosing_range 130:28-130:29
 
               Public Sub New(ByVal field As D)
-'                        ^^^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#`.ctor`().
+'                        ^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#`.ctor`().
 '                            enclosing_range 132:12-132:44
 '                            documentation ```vb\nPublic Sub ObjectCreationClass.New(field As D)\n```
-'                                  ^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#`.ctor`().(field)
+'                                  ^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#`.ctor`().(field)
 '                                        enclosing_range 132:12-132:44
 '                                        documentation ```vb\nfield As D\n```
-'                                        relationship type_definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
-'                                           ^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
+'                                        relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
+'                                           ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
 '                                             enclosing_range 132:42-132:43
                   Me.Field = field
-'                    ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#Field.
+'                    ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#Field.
 '                          enclosing_range 133:16-133:24
-'                            ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#`.ctor`().(field)
+'                            ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#`.ctor`().(field)
 '                                  enclosing_range 133:27-133:32
               End Sub
 
               Public Class D
-'                          ^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
+'                          ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
 '                            enclosing_range 136:12-136:26
 '                            documentation ```vb\nClass D\n```
                   Public Sub New(ByVal a As Integer, ByVal b As String)
-'                            ^^^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#`.ctor`().
+'                            ^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#`.ctor`().
 '                                enclosing_range 137:16-137:69
 '                                documentation ```vb\nPublic Sub D.New(a As Integer, b As String)\n```
-'                                      ^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#`.ctor`().(a)
+'                                      ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#`.ctor`().(a)
 '                                        enclosing_range 137:16-137:69
 '                                        documentation ```vb\na As Integer\n```
 '                                        relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
-'                                                          ^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#`.ctor`().(b)
+'                                                          ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#`.ctor`().(b)
 '                                                            enclosing_range 137:16-137:69
 '                                                            documentation ```vb\nb As String\n```
 '                                                            relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
@@ -638,29 +638,29 @@
           End Class
 
           Private Sub ObjectCreation()
-'                     ^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreation().
+'                     ^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreation().
 '                                    enclosing_range 142:8-142:36
 '                                    documentation ```vb\nPrivate Sub Expressions.ObjectCreation()\n```
               Dim A = New ObjectCreationClass.D(1, "hi")
 '                 ^ definition local 35
 '                   enclosing_range 142:8-148:15
 '                   documentation ```vb\nA As Class D\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
-'                         ^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
+'                         ^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#
 '                                             enclosing_range 143:24-143:45
-'                                             ^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#D#
+'                                             ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#D#
 '                                               enclosing_range 143:24-143:45
               Dim B = New ObjectCreationClass(A) With {
 '                 ^ definition local 36
 '                   enclosing_range 142:8-148:15
 '                   documentation ```vb\nB As Class ObjectCreationClass\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#
-'                         ^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#
+'                         ^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#
 '                                             enclosing_range 144:20-146:13
 '                                             ^ reference local 35
 '                                               enclosing_range 144:44-144:45
                   .Field = A
-'                  ^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#Field.
+'                  ^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#Field.
 '                        enclosing_range 145:17-145:22
 '                          ^ reference local 35
 '                            enclosing_range 145:25-145:26
@@ -668,101 +668,101 @@
               B = New ObjectCreationClass(A)
 '             ^ reference local 36
 '               enclosing_range 147:12-147:13
-'                     ^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#ObjectCreationClass#
+'                     ^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#ObjectCreationClass#
 '                                         enclosing_range 147:16-147:42
 '                                         ^ reference local 35
 '                                           enclosing_range 147:40-147:41
           End Sub
 
           Class NamedParametersClass
-'               ^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#
+'               ^^^^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#
 '                                    enclosing_range 150:8-150:34
 '                                    documentation ```vb\nClass NamedParametersClass\n```
               Public A As Integer
-'                    ^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#A.
+'                    ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#A.
 '                      enclosing_range 151:12-151:31
 '                      documentation ```vb\nPublic NamedParametersClass.A As Integer\n```
 '                      relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
               Public B As String
-'                    ^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#B.
+'                    ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#B.
 '                      enclosing_range 152:12-152:30
 '                      documentation ```vb\nPublic NamedParametersClass.B As String\n```
 '                      relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
 
               Public Sub New(ByVal a As Integer, ByVal b As String)
-'                        ^^^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().
+'                        ^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().
 '                            enclosing_range 154:12-154:65
 '                            documentation ```vb\nPublic Sub NamedParametersClass.New(a As Integer, b As String)\n```
-'                                  ^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().(a)
+'                                  ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().(a)
 '                                    enclosing_range 154:12-154:65
 '                                    documentation ```vb\na As Integer\n```
 '                                    relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
-'                                                      ^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().(b)
+'                                                      ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().(b)
 '                                                        enclosing_range 154:12-154:65
 '                                                        documentation ```vb\nb As String\n```
 '                                                        relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
                   Me.A = a
-'                    ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#A.
+'                    ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#A.
 '                      enclosing_range 155:16-155:20
-'                        ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().(a)
+'                        ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().(a)
 '                          enclosing_range 155:23-155:24
                   Me.B = b
-'                    ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#B.
+'                    ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#B.
 '                      enclosing_range 156:16-156:20
-'                        ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().(b)
+'                        ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().(b)
 '                          enclosing_range 156:23-156:24
               End Sub
 
               Public Sub Update(ByVal a As Integer, ByVal b As String)
-'                        ^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().
+'                        ^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().
 '                               enclosing_range 159:12-159:68
 '                               documentation ```vb\nPublic Sub NamedParametersClass.Update(a As Integer, b As String)\n```
-'                                     ^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().(a)
+'                                     ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().(a)
 '                                       enclosing_range 159:12-159:68
 '                                       documentation ```vb\na As Integer\n```
 '                                       relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Int32#
-'                                                         ^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().(b)
+'                                                         ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().(b)
 '                                                           enclosing_range 159:12-159:68
 '                                                           documentation ```vb\nb As String\n```
 '                                                           relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/String#
                   Me.A = a
-'                    ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#A.
+'                    ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#A.
 '                      enclosing_range 160:16-160:20
-'                        ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().(a)
+'                        ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().(a)
 '                          enclosing_range 160:23-160:24
                   Me.B = b
-'                    ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#B.
+'                    ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#B.
 '                      enclosing_range 161:16-161:20
-'                        ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().(b)
+'                        ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().(b)
 '                          enclosing_range 161:23-161:24
               End Sub
           End Class
 
           Private Function NamedParameters() As NamedParametersClass
-'                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#NamedParameters().
+'                          ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParameters().
 '                                          enclosing_range 165:8-165:66
 '                                          documentation ```vb\nPrivate Function Expressions.NamedParameters() As NamedParametersClass\n```
-'                                               ^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#
+'                                               ^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#
 '                                                                    enclosing_range 165:46-165:66
               Dim A = New NamedParametersClass(b:="hi", a:=1)
 '                 ^ definition local 37
 '                   enclosing_range 165:8-169:20
 '                   documentation ```vb\nA As Class NamedParametersClass\n```
-'                   relationship type_definition scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#
-'                         ^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#
+'                   relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#
+'                         ^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#
 '                                              enclosing_range 166:20-166:59
-'                                              ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().(b)
+'                                              ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().(b)
 '                                                enclosing_range 166:45-166:46
-'                                                       ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#`.ctor`().(a)
+'                                                       ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#`.ctor`().(a)
 '                                                         enclosing_range 166:54-166:55
               A.Update(b:="foo", a:=42)
 '             ^ reference local 37
 '               enclosing_range 167:12-167:37
-'               ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().
+'               ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().
 '                      enclosing_range 167:12-167:37
-'                      ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().(b)
+'                      ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().(b)
 '                        enclosing_range 167:21-167:22
-'                                ^ reference scip-dotnet nuget . . VBMain/Expressions#NamedParametersClass#Update().(a)
+'                                ^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#NamedParametersClass#Update().(a)
 '                                  enclosing_range 167:31-167:32
               Return A
 '                    ^ reference local 37
@@ -770,7 +770,7 @@
           End Function
 
           Private Function AnonymousFunction() As Func(Of Integer, Integer)
-'                          ^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#AnonymousFunction().
+'                          ^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#AnonymousFunction().
 '                                            enclosing_range 171:8-171:73
 '                                            documentation ```vb\nPrivate Function Expressions.AnonymousFunction() As Func(Of Integer, Integer)\n```
               Dim d = Function(ByVal __ As Integer, ByVal ___ As Integer) 42
@@ -804,25 +804,25 @@
           End Function
 
           Class Lambda
-'               ^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Lambda#
+'               ^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
 '                      enclosing_range 176:8-176:20
 '                      documentation ```vb\nClass Lambda\n```
               Public Function func(ByVal x As Lambda) As String
-'                             ^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Lambda#func().
+'                             ^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#func().
 '                                  enclosing_range 177:12-177:61
 '                                  documentation ```vb\nPublic Function Lambda.func(x As Lambda) As String\n```
-'                                        ^ definition scip-dotnet nuget . . VBMain/Expressions#Lambda#func().(x)
+'                                        ^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#func().(x)
 '                                          enclosing_range 177:12-177:61
 '                                          documentation ```vb\nx As Lambda\n```
-'                                          relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Lambda#
-'                                             ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Lambda#
+'                                          relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
+'                                             ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
 '                                                    enclosing_range 177:44-177:50
                   Return ""
               End Function
           End Class
 
           Private Sub LambdaExpressions()
-'                     ^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#LambdaExpressions().
+'                     ^^^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#LambdaExpressions().
 '                                       enclosing_range 182:8-182:39
 '                                       documentation ```vb\nPrivate Sub Expressions.LambdaExpressions()\n```
               Dim a = Function(ByVal x As String) x & 1
@@ -844,18 +844,18 @@
 '                                    ^^ definition local 53
 '                                       enclosing_range 184:20-184:68
 '                                       documentation ```vb\naa As Lambda\n```
-'                                       relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Lambda#
-'                                          ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Lambda#
+'                                       relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
+'                                          ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
 '                                                 enclosing_range 184:41-184:47
 '                                                        ^^ definition local 54
 '                                                           enclosing_range 184:20-184:68
 '                                                           documentation ```vb\nbb As Lambda\n```
-'                                                           relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Lambda#
-'                                                              ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Lambda#
+'                                                           relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
+'                                                              ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
 '                                                                     enclosing_range 184:61-184:67
 '                                                                      ^^ reference local 53
 '                                                                         enclosing_range 184:69-184:80
-'                                                                         ^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Lambda#func().
+'                                                                         ^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#func().
 '                                                                              enclosing_range 184:69-184:80
 '                                                                              ^^ reference local 54
 '                                                                                 enclosing_range 184:77-184:79
@@ -867,14 +867,14 @@
 '                              ^^^ definition local 58
 '                                  enclosing_range 185:20-185:57
 '                                  documentation ```vb\naaa As Lambda\n```
-'                                  relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Lambda#
-'                                     ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Lambda#
+'                                  relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
+'                                     ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
 '                                            enclosing_range 185:36-185:42
 '                                             ^^ definition local 59
 '                                                enclosing_range 185:20-185:57
 '                                                documentation ```vb\n__ As Lambda\n```
-'                                                relationship type_definition scip-dotnet nuget . . VBMain/Expressions#Lambda#
-'                                                   ^^^^^^ reference scip-dotnet nuget . . VBMain/Expressions#Lambda#
+'                                                relationship type_definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
+'                                                   ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/Expressions#Lambda#
 '                                                          enclosing_range 185:50-185:56
                           If True Then
                               Return "hi"
@@ -883,7 +883,7 @@
           End Sub
 
           Private Sub TupleExpression()
-'                     ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#TupleExpression().
+'                     ^^^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#TupleExpression().
 '                                     enclosing_range 192:8-192:37
 '                                     documentation ```vb\nPrivate Sub Expressions.TupleExpression()\n```
               Dim A = (1, 2, "")
@@ -894,7 +894,7 @@
           End Sub
 
           Private Sub ArrayCreation()
-'                     ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#ArrayCreation().
+'                     ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#ArrayCreation().
 '                                   enclosing_range 196:8-196:35
 '                                   documentation ```vb\nPrivate Sub Expressions.ArrayCreation()\n```
               Dim a = {
@@ -960,7 +960,7 @@
           End Sub
 
           Private Sub [TypeOf]()
-'                     ^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#TypeOf().
+'                     ^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#TypeOf().
 '                              enclosing_range 219:8-219:30
 '                              documentation ```vb\nPrivate Sub Expressions.TypeOf()\n```
               Dim a = GetType(Integer)
@@ -973,7 +973,7 @@
 '                   enclosing_range 219:8-224:15
 '                   documentation ```vb\nb As Class Type\n```
 '                   relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Type#
-'                                             ^^^^^^^^^^ reference scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#Enumerator#
+'                                             ^^^^^^^^^^ reference scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#Enumerator#
 '                                                        enclosing_range 221:28-221:54
               Dim c = GetType(Dictionary(Of,))
 '                 ^ definition local 78
@@ -988,7 +988,7 @@
           End Sub
 
           Private Sub SelectCase()
-'                     ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#SelectCase().
+'                     ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#SelectCase().
 '                                enclosing_range 226:8-226:32
 '                                documentation ```vb\nPrivate Sub Expressions.SelectCase()\n```
               Dim Some = 42
@@ -1001,34 +1001,34 @@
 '                              enclosing_range 228:24-228:28
                   Case 1
                       Debug.WriteLine("One")
-'                     ^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 Diagnostics/Debug#
+'                     ^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/Debug#
 '                           enclosing_range 230:20-230:42
-'                           ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 Diagnostics/Debug#WriteLine(+2).
+'                           ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/Debug#WriteLine(+2).
 '                                     enclosing_range 230:20-230:42
                   Case 2
                       Debug.WriteLine("One")
-'                     ^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 Diagnostics/Debug#
+'                     ^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/Debug#
 '                           enclosing_range 232:20-232:42
-'                           ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 Diagnostics/Debug#WriteLine(+2).
+'                           ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/Debug#WriteLine(+2).
 '                                     enclosing_range 232:20-232:42
                   Case Else
                       Debug.WriteLine("More")
-'                     ^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 Diagnostics/Debug#
+'                     ^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/Debug#
 '                           enclosing_range 234:20-234:43
-'                           ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 Diagnostics/Debug#WriteLine(+2).
+'                           ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/Debug#WriteLine(+2).
 '                                     enclosing_range 234:20-234:43
               End Select
           End Sub
 
           Private Sub Dictionary()
-'                     ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Expressions#Dictionary().
+'                     ^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Expressions#Dictionary().
 '                                enclosing_range 238:8-238:32
 '                                documentation ```vb\nPrivate Sub Expressions.Dictionary()\n```
               Dim A = New Dictionary(Of String, Integer) From {{1, "Test1"}, {2, "Test1"}}
 '                 ^ definition local 81
 '                   enclosing_range 238:8-240:15
 '                   documentation ```vb\nA As Class Dictionary(Of String, Integer)\n```
-'                   relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/Dictionary#
+'                   relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/Dictionary#
           End Sub
 
       End Class

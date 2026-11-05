@@ -1,11 +1,11 @@
   using System.Diagnostics.CodeAnalysis;
 //      ^^^^^^ reference scip-dotnet nuget . . System/
 //             enclosing_range 0:6-0:24
-//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 //                                      enclosing_range 0:6-0:37
-//             ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
+//             ^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/
 //                         enclosing_range 0:6-0:24
-//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+//                         ^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 //                                      enclosing_range 0:6-0:37
 
   namespace Main;
@@ -13,7 +13,7 @@
 //               enclosing_range 2:10-2:14
 
   [SuppressMessage("ReSharper", "all")]
-// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+// ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/CodeAnalysis/SuppressMessageAttribute#`.ctor`().
 //                 enclosing_range 4:1-4:16
   public class Statements
 //             ^^^^^^^^^^ definition scip-dotnet nuget . . Main/Statements#
@@ -28,9 +28,9 @@
           try
           {
               File.ReadLines("asd");
-//            ^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/File#
+//            ^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/File#
 //                 enclosing_range 11:12-11:33
-//                 ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/File#ReadLines().
+//                 ^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/File#ReadLines().
 //                           enclosing_range 11:12-11:33
           }
           catch (Exception err)
@@ -115,17 +115,17 @@
 //            ^^^^ definition local 5
 //                 enclosing_range 34:4-38:5
 //                 documentation ```cs\nList<Inferred>? list\n```
-//                 relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                 relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
 //                            ^^^^^^^^ reference scip-dotnet nuget . . Main/Statements#Inferred#
 //                                     enclosing_range 36:28-36:36
           var result = list.Select(c => (c.F1, c.F2)).Where(t => t.F2 == 1);
 //            ^^^^^^ definition local 6
 //                   enclosing_range 34:4-38:5
 //                   documentation ```cs\nIEnumerable<(int F1, int F2)>? result\n```
-//                   relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 Generic/IEnumerable#
+//                   relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/Collections/Generic/IEnumerable#
 //                     ^^^^ reference local 5
 //                          enclosing_range 37:21-37:51
-//                          ^^^^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 Linq/Enumerable#Select(+1).
+//                          ^^^^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 System/Linq/Enumerable#Select(+1).
 //                                 enclosing_range 37:21-37:51
 //                                 ^ definition local 8
 //                                   enclosing_range 34:4-38:5
@@ -139,7 +139,7 @@
 //                                               enclosing_range 37:45-37:49
 //                                               ^^ reference scip-dotnet nuget . . Main/Statements#Inferred#F2.
 //                                                  enclosing_range 37:45-37:49
-//                                                    ^^^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 Linq/Enumerable#Where().
+//                                                    ^^^^^ reference scip-dotnet nuget System.Linq 10.0.0.0 System/Linq/Enumerable#Where().
 //                                                          enclosing_range 37:21-37:73
 //                                                          ^ definition local 10
 //                                                            enclosing_range 34:4-38:5
@@ -242,33 +242,33 @@
 //                       documentation ```cs\nprivate long Statements.MultipleUsing()\n```
       {
           using (Stream a = File.OpenRead("a"), b = File.OpenRead("a"))
-//               ^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/Stream#
+//               ^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/Stream#
 //                      enclosing_range 70:15-70:21
 //                      ^ definition local 18
 //                        enclosing_range 68:4-74:5
 //                        documentation ```cs\nStream a\n```
-//                        relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 IO/Stream#
-//                          ^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/File#
+//                        relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/Stream#
+//                          ^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/File#
 //                               enclosing_range 70:26-70:44
-//                               ^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/File#OpenRead().
+//                               ^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/File#OpenRead().
 //                                        enclosing_range 70:26-70:44
 //                                              ^ definition local 19
 //                                                enclosing_range 68:4-74:5
 //                                                documentation ```cs\nStream b\n```
-//                                                relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 IO/Stream#
-//                                                  ^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/File#
+//                                                relationship type_definition scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/Stream#
+//                                                  ^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/File#
 //                                                       enclosing_range 70:50-70:68
-//                                                       ^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/File#OpenRead().
+//                                                       ^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/File#OpenRead().
 //                                                                enclosing_range 70:50-70:68
           {
               return a.Length + b.Length;
 //                   ^ reference local 18
 //                     enclosing_range 72:19-72:27
-//                     ^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/Stream#Length.
+//                     ^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/Stream#Length.
 //                            enclosing_range 72:19-72:27
 //                              ^ reference local 19
 //                                enclosing_range 72:30-72:38
-//                                ^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 IO/Stream#Length.
+//                                ^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/IO/Stream#Length.
 //                                       enclosing_range 72:30-72:38
           }
       }
@@ -312,7 +312,7 @@
 //                                          ^^^^^ definition scip-dotnet nuget . . Main/Statements#ForeachVariable().(names)
 //                                                enclosing_range 85:4-91:5
 //                                                documentation ```cs\nList<(int, int)> names\n```
-//                                                relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 Generic/List#
+//                                                relationship type_definition scip-dotnet nuget System.Collections 10.0.0.0 System/Collections/Generic/List#
       {
           foreach ((int firstName, int lastName) in names)
 //                      ^^^^^^^^^ definition local 23

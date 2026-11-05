@@ -1,25 +1,25 @@
   Imports System.Diagnostics.CodeAnalysis
 '         ^^^^^^ reference scip-dotnet nuget . . System/
 '                enclosing_range 0:8-0:26
-'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 '                                         enclosing_range 0:8-0:39
-'                ^^^^^^^^^^^ reference scip-dotnet nuget . . Diagnostics/
+'                ^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/
 '                            enclosing_range 0:8-0:26
-'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . CodeAnalysis/
+'                            ^^^^^^^^^^^^ reference scip-dotnet nuget . . System/Diagnostics/CodeAnalysis/
 '                                         enclosing_range 0:8-0:39
 
   Namespace VBMain
-'           ^^^^^^ reference scip-dotnet nuget . . VBMain/
+'           ^^^^^^ reference scip-dotnet nuget . . VBMain/VBMain/
 '                  enclosing_range 2:10-2:16
       <SuppressMessage("ReSharper", "all")>
-'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 CodeAnalysis/SuppressMessageAttribute#`.ctor`().
+'      ^^^^^^^^^^^^^^^ reference scip-dotnet nuget System.Runtime 10.0.0.0 System/Diagnostics/CodeAnalysis/SuppressMessageAttribute#`.ctor`().
 '                      enclosing_range 3:5-3:20
       Public Class Literals
-'                  ^^^^^^^^ definition scip-dotnet nuget . . VBMain/Literals#
+'                  ^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Literals#
 '                           enclosing_range 3:4-4:25
 '                           documentation ```vb\nClass Literals\n```
           Private Function Interpolation() As String
-'                          ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/Literals#Interpolation().
+'                          ^^^^^^^^^^^^^ definition scip-dotnet nuget . . VBMain/VBMain/Literals#Interpolation().
 '                                        enclosing_range 5:8-5:50
 '                                        documentation ```vb\nPrivate Function Literals.Interpolation() As String\n```
               Dim a = 1
